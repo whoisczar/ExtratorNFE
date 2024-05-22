@@ -12,8 +12,7 @@ input.addEventListener('change', function () {
         infoArea.value = leitor.result;
         mudarVisibilidade(infoArea);
         ajustarAlturaTextArea(infoArea);
-        const infoTitulo = fornecedorEmitente(leitor.result);
-        infoTitle.textContent = infoTitulo; // Usando o resultado para definir o título
+        fornecedorEmitente(leitor.result);
     })
 
     if (arquivo) {
@@ -46,10 +45,25 @@ function fornecedorEmitente(xmlString) {
     const namespace = "http://www.portalfiscal.inf.br/nfe";
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
+
+    // Extração das informações de emitente e destinatário usando a função auxiliar
     const emitente = extrairInformacoes(xmlDoc, 'emit', namespace);
     const destinatario = extrairInformacoes(xmlDoc, 'dest', namespace);
-    return `Emitente: ${emitente.nome}\n\n\n\nDestinatário: ${destinatario.nome}`;
+
+    // Extração da informação do número da NF
+    const auxNumeroNF = xmlDoc.getElementsByTagNameNS(namespace, 'ide');
+    let numeroNF = 'Não encontrado';
+    if (auxNumeroNF.length > 0) {
+        const nNFElement = auxNumeroNF[0].getElementsByTagNameNS(namespace, 'nNF')[0];
+        if (nNFElement) {
+            numeroNF = nNFElement.textContent;
+        }
+    }
+
+    // Configurando a string HTML a ser colocada no elemento infoTitle
+    infoTitle.innerHTML = `NF: ${numeroNF} <br> Emitente: ${emitente.nome}<br>Destinatário: ${destinatario.nome}`;
 }
+
 
 function manipularXML(xmlString) {
 }
