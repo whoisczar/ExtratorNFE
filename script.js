@@ -33,11 +33,13 @@ function extrairInformacoes(xmlDoc, tag, namespace) {
     const elementos = xmlDoc.getElementsByTagNameNS(namespace, tag);
     if (elementos.length > 0) {
         return {
-            nome: elementos[0].getElementsByTagNameNS(namespace, 'xNome')[0] ?.textContent || 'Nome não disponível'
+            nome: elementos[0].getElementsByTagNameNS(namespace, 'xNome')[0] ?.textContent || 'NOME não disponível',
+            cnpj: elementos[0].getElementsByTagNameNS(namespace, 'CNPJ')[0] ?.textContent || 'CNPJ não disponível'
         };
     }
     return {
-        nome: 'Não encontrado'
+        nome: 'Não encontrado',
+        cnpj: 'Não encontrado'
     };
 }
 
@@ -61,7 +63,7 @@ function fornecedorEmitente(xmlString) {
     }
 
     // Configurando a string HTML a ser colocada no elemento infoTitle
-    infoTitle.innerHTML = `NF: ${numeroNF} <br> Emitente: ${emitente.nome}<br>Destinatário: ${destinatario.nome}`;
+    infoTitle.innerHTML = `NF: ${numeroNF} <br> Emitente: ${emitente.nome}<br> CNPJ: ${emitente.cnpj} <br> Destinatário: ${destinatario.nome} <br> CNPJ: ${destinatario.cnpj}`;
 }
 
 
