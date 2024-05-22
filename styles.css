@@ -17,23 +17,23 @@ img {
     transition: all 0.5s;
 }
 
-.socialIMG{
+.socialIMG {
     position: absolute;
     top: 8px;
     right: 16px;
     font-size: 18px;
 }
 
-img:hover{
+img:hover {
     transform: scale(1.1);
 }
 
 .fileSelectContainer,
-.infoNfeContainer{
-    max-width: fit-content;
+.infoNfeContainer {
+    max-width: 600px;
     margin: 50px auto;
     background-color: #ffffffbd;
-    padding: 20px;
+    padding: 30px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -42,13 +42,18 @@ img:hover{
     resize: both;
 }
 
+.fileSelectContainer {
+    max-width: 350px;
+}
 
-
+.buttonsControl {
+    display: grid;
+    gap: 25px; /* Define o espaçamento entre os elementos */
+}
 
 h1 {
     color: #333;
 }
-
 
 button {
     padding: 10px 10px;
