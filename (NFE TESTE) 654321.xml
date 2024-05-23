@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+    <NFe>
+        <infNFe versao="4.00">
+            <ide>
+                <cUF>35</cUF>
+                <cNF>50607080</cNF>
+                <natOp>Venda de Mercadorias</natOp>
+                <mod>55</mod>
+                <serie>2</serie>
+                <nNF>654321</nNF>
+                <dhEmi>2024-06-17T15:00:00-03:00</dhEmi>
+                <tpNF>1</tpNF>
+                <idDest>1</idDest>
+                <cMunFG>3550308</cMunFG>
+                <tpImp>1</tpImp>
+                <tpEmis>1</tpEmis>
+                <cDV>2</cDV>
+                <tpAmb>2</tpAmb>
+                <finNFe>1</finNFe>
+                <indFinal>1</indFinal>
+                <indPres>1</indPres>
+                <procEmi>0</procEmi>
+                <verProc>2.0</verProc>
+            </ide>
+            <emit>
+                <CNPJ>11223344000155</CNPJ>
+                <xNome>Outra Empresa Emitente Ltda</xNome>
+                <enderEmit>
+                    <xLgr>Avenida Principal</xLgr>
+                    <nro>300</nro>
+                    <xBairro>Comercial</xBairro>
+                    <cMun>3550308</cMun>
+                    <xMun>Sao Paulo</xMun>
+                    <UF>SP</UF>
+                    <CEP>02000000</CEP>
+                    <cPais>1058</cPais>
+                    <xPais>Brasil</xPais>
+                    <fone>1134567890</fone>
+                </enderEmit>
+                <IE>223344556</IE>
+                <CRT>3</CRT>
+            </emit>
+            <dest>
+                <CNPJ>99887766000155</CNPJ>
+                <xNome>Empresa Cliente Ltda</xNome>
+                <enderDest>
+                    <xLgr>Rua Secundária</xLgr>
+                    <nro>400</nro>
+                    <xBairro>Residencial</xBairro>
+                    <cMun>3304557</cMun>
+                    <xMun>Rio de Janeiro</xMun>
+                    <UF>RJ</UF>
+                    <CEP>22000000</CEP>
+                    <cPais>1058</cPais>
+                    <xPais>Brasil</xPais>
+                    <fone>2134567890</fone>
+                </enderDest>
+                <indIEDest>1</indIEDest>
+                <IE>998877665</IE>
+                <email>cliente@empresa.com.br</email>
+            </dest>
+            <det nItem="1">
+                <prod>
+                    <cProd>010</cProd>
+                    <cEAN>1234567890123</cEAN>
+                    <xProd>Produto 10</xProd>
+                    <NCM>12345678</NCM>
+                    <CFOP>5102</CFOP>
+                    <uCom>UN</uCom>
+                    <qCom>15.0000</qCom>
+                    <vUnCom>15.00</vUnCom>
+                    <vProd>225.00</vProd>
+                    <cEANTrib>1234567890123</cEANTrib>
+                    <uTrib>UN</uTrib>
+                    <qTrib>15.0000</qTrib>
+                    <vUnTrib>15.00</vUnTrib>
+                    <indTot>1</indTot>
+                </prod>
+                <imposto>
+                    <ICMS>
+                        <ICMS00>
+                            <orig>0</orig>
+                            <CST>00</CST>
+                            <modBC>3</modBC>
+                            <vBC>225.00</vBC>
+                            <pICMS>18.00</pICMS>
+                            <vICMS>40.50</vICMS>
+                        </ICMS00>
+                    </ICMS>
+                    <IPI>
+                        <cEnq>999</cEnq>
+                        <IPITrib>
+                            <vBC>225.00</vBC>
+                            <pIPI>5.00</pIPI>
+                            <vIPI>11.25</vIPI>
+                        </IPITrib>
+                    </IPI>
+                    <PIS>
+                        <PISAliq>
+                            <CST>01</CST>
+                            <vBC>225.00</vBC>
+                            <pPIS>1.65</pPIS>
+                            <vPIS>3.71</vPIS>
+                        </PISAliq>
+                    </PIS>
+                    <COFINS>
+                        <COFINSAliq>
+                            <CST>01</CST>
+                            <vBC>225.00</vBC>
+                            <pCOFINS>7.60</pCOFINS>
+                            <vCOFINS>17.10</vCOFINS>
+                        </COFINSAliq>
+                    </COFINS>
+                </imposto>
+            </det>
+            <!-- Mais produtos podem ser adicionados aqui -->
+        </infNFe>
+    </NFe>
+    <protNFe versao="4.00">
+        <infProt>
+            <tpAmb>2</tpAmb>
+            <verAplic>AM.4.00</verAplic>
+            <chNFe>35191212345678000195550000001234567890123456</chNFe>
+            <dhRecbto>2024-06-17T15:10:00-03:00</dhRecbto>
+            <nProt>135210000000000</nProt>
+            <digVal>abc123def456ghi789jkl012mno345pqr678stu901vwx234yz567</digVal>
+            <cStat>100</cStat>
+            <xMotivo>Autorizado o uso da NF-e</xMotivo>
+        </infProt>
+    </protNFe>
+</nfeProc>

@@ -1,20 +1,24 @@
+/* Estilos Gerais */
 body {
     font-family: Arial, sans-serif;
-    background: rgb(2, 0, 36);
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(131, 86, 170, 1) 50%, rgba(0, 175, 255, 1) 100%);
     margin: 0;
     padding: 0;
 }
 
 img {
-    width: fit-content;
     margin: 10px;
-    background-color: #ffffffbd;
     padding: 5px;
+    width: fit-content;
+    background-color: rgba(255, 255, 255, 0.74);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    transition: all 0.5s;
+    transition: transform 0.5s;
+}
+
+img:hover {
+    transform: scale(1.1);
 }
 
 .socialIMG {
@@ -24,16 +28,12 @@ img {
     font-size: 18px;
 }
 
-img:hover {
-    transform: scale(1.1);
-}
-
 .fileSelectContainer,
 .infoNfeContainer {
-    max-width: 600px;
     margin: 50px auto;
-    background-color: #ffffffbd;
     padding: 30px;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.74);
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
@@ -46,9 +46,24 @@ img:hover {
     max-width: 350px;
 }
 
-.buttonsControl {
-    display: grid;
-    gap: 25px; /* Define o espaçamento entre os elementos */
+.customButton {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.infoText {
+    width: 100%;
+    min-height: 20px;
+    font-size: large;
+    text-align: center;
+    border: none;
+    background: none;
+    resize: none;
+    overflow: hidden;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.5s;
 }
 
 h1 {
@@ -56,39 +71,18 @@ h1 {
 }
 
 button {
-    padding: 10px 10px;
-    background-color: #00000000;
-    color: #000000;
-    border: 1px solid;
-    border-style: double;
+    padding: 10px;
+    color: #000;
+    background-color: transparent;
+    border: 1px double;
     border-radius: 5px;
     cursor: pointer;
-    transition: all .5s;
+    transition: all 0.5s;
 }
 
 button:hover {
-    padding: 15px 15px;
-    background-color: #ffffff;
-    color: #000000;
-    border-color: #000000;
-}
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-}
-
-.infoText {
-    outline: none;
-    font-size: large;
-    border: none;
-    background: none;
-    resize: none; /* Impede o redimensionamento manual */
-    width: 100%; /* Ajuste para a largura do contêiner */
-    min-height: 20px;
-    overflow: hidden;
-    box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
-    transition: all 1s;
+    padding: 15px;
+    background-color: #fff;
+    color: #000;
+    border-color: #000;
 }

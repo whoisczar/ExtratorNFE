@@ -1,28 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seleção de Arquivo XML</title>
+    <title>ExtratorNFE</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
     <img class="socialIMG" width="50" height="50" src="https://img.icons8.com/ios/50/linkedin.png" alt="linkedin" />
-    <a class="social" href="https://www.linkedin.com/in/whoisczar/"></a>
+    <a class="social" href="https://www.linkedin.com/in/whoisczar/" aria-label="Perfil no LinkedIn de Gabriel Reis"></a>
     <div class="fileSelectContainer">
-        <h1>Seleção de Arquivo XML</h1>
-        <button class="customButton">Selecionar Arquivo</button>
+        <h1>Selecione uma nota fiscal</h1>
+        <h5>OBS: A nota tem que estar em arquivo XML</h5>
+        <button class="inputButton">Selecionar Arquivo</button>
         <input type="file" id="fileInput" accept=".xml" style="display: none;">
     </div>
     <div class="infoNfeContainer">
-        <button class="anteriorButton" style = "display: none;">ANTERIOR</button> 
-        <button class="proximoButton" style = "display: none;">PRÓXIMO</button> 
-        <button class="verTudoButton" style = "display: none;">VER TUDO</button>
         <h3 class="Title">Nenhuma informação até o momento</h3>
+        <div class="customButton">
+            <button class="anteriorButton" style="display: none;">ANTERIOR</button>
+            <button class="proximoButton" style="display: none;">PRÓXIMO</button>
+            <button class="verTudoButton" style="display: none;">VER TUDO</button>
+            <button class="infoEmitenteButton" style="display: none;">Emitente</button>
+            <button class="infoDestinatarioButton" style="display: none;">Destinatário</button>
+        </div>
         <textarea class="infoText" readonly="true" style="display: none;"></textarea>
-        <a href="https://www.linkedin.com/in/whoisczar/">Criado por: Gabriel Reis</a>
+        <br><a href="https://www.linkedin.com/in/whoisczar/">Criado por: Gabriel Reis</a>
         <br><a href="https://icons8.com/">Icons by Icons8</a>
     </div>
 
