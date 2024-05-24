@@ -2,6 +2,7 @@
 const input = document.querySelector('#fileInput');
 const infoArea = document.querySelector('.infoText');
 const infoTitle = document.querySelector('.Title');
+const divBotoes = document.querySelector('.customButton');
 
 //Informações cabeçalho
 let numeroNF;
@@ -11,14 +12,13 @@ let produtos;
 
 //Botões Auxiliares
 const botaoInput = document.querySelector('.inputButton');
-const botaoProximo = document.querySelector('.proximoButton');
-const botaoAnterior = document.querySelector('.anteriorButton');
-const botaoVerTudo = document.querySelector('.verTudoButton');
+const socialButton = document.querySelector('.socialIMG');
 
+//Botões de informações
 const infoEmitenteButton = document.querySelector('.infoEmitenteButton');
 const infoDestinatarioButton = document.querySelector('.infoDestinatarioButton');
 
-const socialButton = document.querySelector('.socialIMG');
+
 
 //Leitores de Evento
 input.addEventListener('change', function () {
@@ -34,8 +34,7 @@ input.addEventListener('change', function () {
         infoArea.value = leitor.result;
 
         mudarVisibilidade(infoArea);
-        mudarVisibilidade(infoEmitenteButton);
-        mudarVisibilidade(infoDestinatarioButton);
+        mudarVisibilidade(divBotoes);
 
         ajustarAlturaTextArea(infoArea);
         fornecedorEmitente(leitor.result);
@@ -89,8 +88,13 @@ function mudarVisibilidade(elemento) {
     }
 }
 
+function ajustarAlturaTextArea(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
+
 //Funções principais
-function extrairInformacoes(xmlDoc, tag, namespace) {
+function extrairInformacoesEmitenteDestinatario(xmlDoc, tag, namespace) {
     const elementos = xmlDoc.getElementsByTagNameNS(namespace, tag);
     if (elementos.length > 0) {
         const enderElement = elementos[0].getElementsByTagNameNS(namespace, 'enderEmit')[0] || elementos[0].getElementsByTagNameNS(namespace, 'enderDest')[0];
@@ -124,8 +128,8 @@ function fornecedorEmitente(xmlString) {
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(xmlString, 'application/xml');
 
-    const emitente = extrairInformacoes(xmlDoc, 'emit', namespace);
-    const destinatario = extrairInformacoes(xmlDoc, 'dest', namespace);
+    const emitente = extrairInformacoesEmitenteDestinatario(xmlDoc, 'emit', namespace);
+    const destinatario = extrairInformacoesEmitenteDestinatario(xmlDoc, 'dest', namespace);
 
     const auxNumeroNF = xmlDoc.getElementsByTagNameNS(namespace, 'ide');
     let numeroNF = 'Não encontrado';
@@ -142,12 +146,9 @@ function fornecedorEmitente(xmlString) {
     infoTitle.innerText = `NF: ${numeroNF}`;
 }
 
-function ajustarAlturaTextArea(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-}
 
-/*
+
+
 function extrairICMS(produto) {
     const icmsTags = ['ICMS00', 'ICMS10', 'ICMS20', 'ICMS30', 'ICMS40', 'ICMS51', 'ICMS60', 'ICMS70', 'ICMS90'];
     let icms = null;
@@ -170,4 +171,4 @@ function extrairICMS(produto) {
             valorIcmsProduto: 0
         };
     }
-}*/ 
+}
