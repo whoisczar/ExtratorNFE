@@ -81,3 +81,25 @@ button:hover {
     color: #000;
     border-color: #000;
 }
+
+.infoTable {
+    margin: 0 auto; /* Define as margens laterais automáticas para centralizar a tabela */
+    width: 80%; /* Define a largura da tabela */
+    border-collapse: collapse; /* Mescla as bordas das células da tabela */
+}
+
+.infoTable th,
+.infoTable td {
+    border: 1px solid #000000; /* Adiciona bordas às células da tabela */
+    padding: 8px; /* Adiciona espaçamento interno às células */
+    text-align: left; /* Alinha o texto à esquerda dentro das células */
+}
+
+.infoTable th {
+    background-color: #f2f2f2; /* Define a cor de fundo das células do cabeçalho */
+    color: #333; /* Define a cor do texto do cabeçalho */
+}
+
+.infoTable tr:nth-child(even) {
+    background-color: #f2f2f2; /* Alterna a cor de fundo das linhas pares */
+}
