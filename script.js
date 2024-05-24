@@ -134,7 +134,7 @@ function mostrarInformacao(id) {
             auxiliarTable += '</tbody></table>';
             break;
 
-        case "infoIcmsProdsButton":
+        case "infoIcmsStProdsButton":
             auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS ST</th><th>% ICMS ST</th><th>Valor ICMS ST</th></tr></thead><tbody>';
             for (let i = 0; i < produtos.length; i++) {
                 if (produtos[i].impostos && produtos[i].impostos.ICMS && produtos[i].impostos.ICMS.type === 'ICMSST') {
@@ -147,13 +147,15 @@ function mostrarInformacao(id) {
     }
 
     if (auxiliar.length > 0) {
+        mudarVisibilidade(infoArea);
         infoArea.value = auxiliar;
         tableAux.innerHTML = '';
     }
 
     if (auxiliarTable.length > 0) {
+
         tableAux.innerHTML = auxiliarTable; // Inserimos a tabela dentro da div com a classe infoTable
-        infoArea.value = '';
+        infoArea.style.display = 'none';
     }
 
     ajustarAlturaTextArea(infoArea);

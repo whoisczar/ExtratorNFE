@@ -21,12 +21,13 @@ img:hover {
     transform: scale(1.1);
 }
 
-.socialIMG {
+.socialDiv{
     position: absolute;
     top: 8px;
     right: 16px;
     font-size: 18px;
 }
+
 
 .fileSelectContainer,
 .infoNfeContainer {
@@ -93,13 +94,11 @@ button:hover {
     border: 1px solid #000000; /* Adiciona bordas às células da tabela */
     padding: 8px; /* Adiciona espaçamento interno às células */
     text-align: left; /* Alinha o texto à esquerda dentro das células */
+    justify-content: center;
+    text-align: center;
 }
 
 .infoTable th {
     background-color: #f2f2f2; /* Define a cor de fundo das células do cabeçalho */
     color: #333; /* Define a cor do texto do cabeçalho */
-}
-
-.infoTable tr:nth-child(even) {
-    background-color: #f2f2f2; /* Alterna a cor de fundo das linhas pares */
 }
