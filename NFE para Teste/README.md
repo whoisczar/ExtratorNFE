@@ -1,4 +1,4 @@
-Projeto que visa criar uma ferramenta visual intuitiva de notas fiscais eletrônicas (NFE) emitidas pelo SEFAZ
+**Projeto que visa criar uma ferramenta visual intuitiva de notas fiscais eletrônicas (NFE) emitidas pelo SEFAZ
 
 Objetivo: Filtrar informações com interface intuitiva.
 
@@ -10,3 +10,4 @@ https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=BMPFMBoln3
 https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=hXzemuyNHW4=
 https://www.mundojs.com.br/2020/05/13/lendo-e-renderizando-arquivos-xml-com-javascript/
 
+**

@@ -9,26 +9,27 @@
 </head>
 
 <body>
+    <img class="socialIMG" width="25" height="25" src="https://img.icons8.com/ios/50/linkedin.png" alt="linkedin" />
     <a class="social" href="https://www.linkedin.com/in/whoisczar/" aria-label="Perfil no LinkedIn de Gabriel Reis"></a>
     <div class="fileSelectContainer">
         <h1>Selecione uma nota fiscal</h1>
         <h5>OBS: A nota tem que estar em arquivo XML</h5>
-        <button class="inputButton">Selecionar Arquivo</button>
-        <input type="file" id="fileInput" accept=".xml" style="display: none;">
+        <div id="dropZone" class="dropZone" style="animation: infinite;">
+            Arraste e solte o arquivo aqui ou clique para selecionar
+        </div>
+        <input class="inputButton" type="file" id="fileInput" style="display: none;">
     </div>
     <div class="infoNfeContainer">
         <h3 class="Title">Nenhuma informação até o momento</h3>
         <div class="customButton" style="display: none;">
-            
-            <button class="infoEmitenteButton">Emitente</button>
-            <button class="infoDestinatarioButton">Destinatário</button><BR>
-            <button class="infoProdsButton">Visualizar produtos</button>
-            <br><button class="infoIcmsProdsButton">ICMS</button>
-            <button class="infoIcmsStProdsButton">ICMS ST</button>
-            <button class="InfoIpiProdsButton">IPI</button><br><br>
-            <textarea class="infoText" readonly="true">Nenhuma informação ainda</textarea>
-            <table class="infoTable"></table><br>
-            
+            <button id="infoEmitenteButton" class="infoEmitenteButton">Emitente</button>
+            <button id="infoDestinatarioButton" class="infoDestinatarioButton">Destinatário</button><br>
+            <button id="infoProdsButton" class="infoProdsButton">Visualizar produtos</button><br>
+            <button id="infoIcmsProdsButton" class="infoIcmsProdsButton">ICMS</button>
+            <button id="infoIcmsStProdsButton" class="infoIcmsStProdsButton">ICMS ST</button>
+            <button id="InfoIpiProdsButton" class="InfoIpiProdsButton">IPI</button><br><br>
+            <textarea class="infoText" readonly="true" id="infoText">Nenhuma informação ainda</textarea>
+            <table class="infoTable" id="infoTable"></table><br>
         </div>
         <a href="https://www.linkedin.com/in/whoisczar/">Criado por: Gabriel Reis</a>
         <br><a href="https://icons8.com/">Icons by Icons8</a>

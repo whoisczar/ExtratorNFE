@@ -17,11 +17,31 @@ img {
     transition: transform 0.5s;
 }
 
+.dropZone {
+    font-size: larger;
+    border: 2px dashed #666666;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin: 20px 0;
+    transition: all 0.5s;
+    user-select: none;
+
+}
+
+
+.dropZone.dragover {
+    border-color: #000;
+    scale: 1.1;
+    background-color: #ffffff90;
+}
+
+
 img:hover {
     transform: scale(1.1);
 }
 
-.socialDiv{
+.socialIMG{
     position: absolute;
     top: 8px;
     right: 16px;
@@ -43,15 +63,19 @@ img:hover {
     resize: both;
 }
 
+.infoNfeContainer{
+    width: fit-content;
+}
+
 .fileSelectContainer {
     max-width: 350px;
 }
 
 .infoText {
-    width: 100%;
-    min-height: 20px;
+    width: 300px;
+    min-height: auto;
     font-size: large;
-    text-align: center;
+    text-align: left;
     border: none;
     background: none;
     resize: none;
@@ -83,19 +107,21 @@ button:hover {
     border-color: #000;
 }
 
+
+
 .infoTable {
     margin: 0 auto; /* Define as margens laterais automáticas para centralizar a tabela */
-    width: 80%; /* Define a largura da tabela */
+    width: auto; /* Define a largura da tabela */
     border-collapse: collapse; /* Mescla as bordas das células da tabela */
+    height: auto;
 }
 
 .infoTable th,
 .infoTable td {
     border: 1px solid #000000; /* Adiciona bordas às células da tabela */
-    padding: 8px; /* Adiciona espaçamento interno às células */
-    text-align: left; /* Alinha o texto à esquerda dentro das células */
+    padding: 6px; /* Adiciona espaçamento interno às células */
+    text-align: center; /* Alinha o texto à esquerda dentro das células */
     justify-content: center;
-    text-align: center;
 }
 
 .infoTable th {

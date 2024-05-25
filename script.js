@@ -1,13 +1,13 @@
-// Informações
 const input = document.querySelector('#fileInput');
 const infoArea = document.querySelector('.infoText');
 const infoTitle = document.querySelector('.Title');
 const divBotoes = document.querySelector('.customButton');
+const dropZone = document.getElementById('dropZone');
 
 let produtos;
 let numeroNF = '';
-let emitenteInfo = '';
-let destinatarioInfo = '';
+let emitenteInfo;
+let destinatarioInfo;
 
 // Botões Auxiliares
 const botaoInput = document.querySelector('.inputButton');
@@ -20,42 +20,14 @@ const infoIcmsProdsButton = document.querySelector('.infoIcmsProdsButton');
 const InfoIpiProdsButton = document.querySelector('.InfoIpiProdsButton');
 const infoProdsButton = document.querySelector('.infoProdsButton');
 const infoIcmsStProdsButton = document.querySelector('.infoIcmsStProdsButton');
+
 // Leitores de Evento
-
 input.addEventListener('change', function() {
-    mudarVisibilidade(divBotoes);
-    const arquivo = this.files[0];
-    const leitor = new FileReader();
-
-    leitor.addEventListener('load', function() {
-        const xmlString = leitor.result;
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlString, "application/xml");
-
-        infoArea.value = xmlString;
-
-        mudarVisibilidade(infoArea);
-        mudarVisibilidade(divBotoes);
-
-        ajustarAlturaTextArea(infoArea);
-        const emitenteDest = fornecedorEmitente(xmlDoc);
-        emitenteInfo = emitenteDest.emitenteInfo;
-        destinatarioInfo = emitenteDest.destinatarioInfo;
-        numeroNF = emitenteDest.numeroNF;
-
-        produtos = extrairProdutos(xmlDoc, "http://www.portalfiscal.inf.br/nfe");
-        console.log(produtos);
-        infoTitle.innerText = `NF: ${numeroNF}`;
-    });
-
-    if (arquivo) {
-        leitor.readAsText(arquivo);
-    } else {
-        alert('Selecione um arquivo!');
-    }
+    processFile(this.files[0]);
 });
 
 botaoInput.addEventListener('click', function() {
+    input.value = ''; // Resetar o input de arquivo para garantir que o change sempre seja acionado
     input.click();
 });
 
@@ -63,86 +35,202 @@ socialButton.addEventListener('click', function() {
     document.querySelector('.social').click();
 });
 
-infoEmitenteButton.addEventListener('click', function() {
+document.getElementById('infoEmitenteButton').addEventListener('click', function() {
     mostrarInformacao('infoEmitenteButton');
 });
 
-infoDestinatarioButton.addEventListener('click', function() {
+document.getElementById('infoDestinatarioButton').addEventListener('click', function() {
     mostrarInformacao('infoDestinatarioButton');
 });
 
-infoProdsButton.addEventListener('click', function() {
+document.getElementById('infoProdsButton').addEventListener('click', function() {
     mostrarInformacao('infoProdsButton');
 });
 
-InfoIpiProdsButton.addEventListener('click', function() {
+document.getElementById('InfoIpiProdsButton').addEventListener('click', function() {
     mostrarInformacao('InfoIpiProdsButton');
 });
 
-infoIcmsProdsButton.addEventListener('click', function() {
+document.getElementById('infoIcmsProdsButton').addEventListener('click', function() {
     mostrarInformacao('infoIcmsProdsButton');
 });
 
-infoIcmsStProdsButton.addEventListener('click', function() {
+document.getElementById('infoIcmsStProdsButton').addEventListener('click', function() {
     mostrarInformacao('infoIcmsStProdsButton');
 });
 
+
+// Eventos de arrastar e soltar
+dropZone.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    dropZone.classList.add('dragover');
+});
+
+dropZone.addEventListener('dragleave', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    dropZone.classList.remove('dragover');
+});
+
+dropZone.addEventListener('drop', (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    dropZone.classList.remove('dragover');
+
+    const files = event.dataTransfer.files;
+    if (files.length) {
+        processFile(files[0]);
+    }
+});
+
+dropZone.addEventListener('click', (event) => {
+    if (event.target !== input) {
+        input.click();
+    }
+});
+
+function processFile(file) {
+    mudarVisibilidade(divBotoes);
+    const leitor = new FileReader();
+
+    leitor.addEventListener('load', function() {
+        const xmlString = leitor.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+
+        mudarVisibilidade(infoArea);
+        mudarVisibilidade(divBotoes);
+        ajustarAlturaTextArea(infoArea);
+
+        const auxiliar = fornecedorEmitente(xmlDoc);
+        emitenteInfo = auxiliar.emitente;
+        destinatarioInfo = auxiliar.destinatario;
+        numeroNF = auxiliar.numeroNF; // Correção aqui
+        infoEmitenteButton.click();
+
+        produtos = extrairProdutos(xmlDoc, "http://www.portalfiscal.inf.br/nfe");
+        infoTitle.innerText = `NF: ${numeroNF}`;
+    });
+
+    if (file) {
+        leitor.readAsText(file);
+    } else {
+        alert('Selecione um arquivo!');
+    }
+}
+
+function processFile(file) {
+    mudarVisibilidade(divBotoes);
+    const leitor = new FileReader();
+
+    leitor.addEventListener('load', function() {
+        const xmlString = leitor.result;
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+
+        mudarVisibilidade(infoArea);
+        mudarVisibilidade(divBotoes);
+        ajustarAlturaTextArea(infoArea);
+
+        const auxiliar = fornecedorEmitente(xmlDoc);
+        emitenteInfo = auxiliar.emitente;
+        destinatarioInfo = auxiliar.destinatario;
+        numeroNF = auxiliar.numeroNF; // Correção aqui
+        infoEmitenteButton.click();
+
+        produtos = extrairProdutos(xmlDoc, "http://www.portalfiscal.inf.br/nfe");
+        infoTitle.innerText = `NF: ${numeroNF}`;
+    });
+
+    if (file) {
+        leitor.readAsText(file);
+    } else {
+        alert('Selecione um arquivo!');
+    }
+}
 
 function mostrarInformacao(id) {
     let auxiliar = '';
     let auxiliarTable = '';
     infoArea.value = '';
     const tableAux = document.querySelector('.infoTable');
-
     switch (id) {
         case "infoEmitenteButton":
-            auxiliar = emitenteInfo;
+            auxiliarTable = `<table><tbody>
+                                <tr><td>Nome / Razão Social:</td><td>${emitenteInfo.nome}</td></tr>
+                                <tr><td>CNPJ:</td><td>${emitenteInfo.cnpj}</td></tr>
+                                <tr><td>Endereço:</td><td> ${emitenteInfo.bairro}, ${emitenteInfo.logradouro}, N° ${emitenteInfo.numero}</td></tr>
+                            </tbody></table>`;
             break;
 
         case "infoDestinatarioButton":
-            auxiliar = destinatarioInfo;
+            auxiliarTable = `<table><tbody>
+                                <tr><td>Nome / Razão Social:</td><td>${destinatarioInfo.nome}</td></tr>
+                                <tr><td>CNPJ / CPF:</td><td>${destinatarioInfo.cnpj}</td></tr>
+                                <tr><td>Endereço:</td><td>${destinatarioInfo.bairro}, ${destinatarioInfo.logradouro}, ${destinatarioInfo.numero}</td></tr>
+                            </tbody></table>`;
             break;
 
         case "infoProdsButton":
-            auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>NCM</th><th>EMB</th><th>Qnt</th><th>Vlr Unt.</th><th>Valor Total</th></tr></thead><tbody>';
-            for (let i = 0; i < produtos.length; i++) {
-                auxiliarTable += `<tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${produtos[i].NCM}</td><td>${produtos[i].uCom}</td><td>${produtos[i].qCom}</td><td>${produtos[i].vUnCom}</td><td>${produtos[i].vProd}</td></tr>`;
+            if (produtos && produtos.length > 0) {
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>NCM</th><th>EMB</th><th>Qnt</th><th>Vlr Unt.</th><th>Valor Total</th></tr></thead><tbody>';
+                for (let i = 0; i < produtos.length; i++) {
+                    auxiliarTable += `<tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${produtos[i].NCM}</td><td>${produtos[i].uCom}</td><td>${produtos[i].qCom}</td><td>${produtos[i].vUnCom}</td><td>${produtos[i].vProd}</td></tr>`;
+                }
+                auxiliarTable += '</tbody></table>';
+            } else {
+                auxiliar = 'Não há produtos disponíveis.';
             }
-            auxiliarTable += '</tbody></table>';
             break;
 
-
         case "InfoIpiProdsButton":
-            auxiliarTable = '<table><thead><tr><tr><th>N°</th><th>Produto</th><th>Base IPI</th><th>Alíquota IPI</th><th>Valor IPI</th></tr></thead><tbody>';
-            for (let i = 0; i < produtos.length; i++) {
-                if (produtos[i].impostos && produtos[i].impostos.IPI) {
-                    const ipiData = produtos[i].impostos.IPI;
-                    auxiliarTable += `<tr><tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${ipiData.vBC}</td><td>${ipiData.pIPI}</td><td>${ipiData.vIPI}</td></tr>`;
+            if (produtos && produtos.length > 0) {
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base IPI</th><th>Alíquota IPI</th><th>Valor IPI</th></tr></thead><tbody>';
+                for (let i = 0; i < produtos.length; i++) {
+                    if (produtos[i].impostos && produtos[i].impostos.IPI) {
+                        const ipiData = produtos[i].impostos.IPI;
+                        if (ipiData.vIPI != null) {
+                            auxiliarTable += `<tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${ipiData.vBC}</td><td>${ipiData.pIPI}</td><td>${ipiData.vIPI}</td></tr>`;
+                        }
+                    }
                 }
+                auxiliarTable += '</tbody></table>';
+            } else {
+                auxiliar = 'Não há produtos disponíveis.';
             }
-            auxiliarTable += '</tbody></table>';
             break;
 
         case "infoIcmsProdsButton":
-            auxiliarTable = '<table><thead><tr><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th></tr></thead><tbody>';
-            for (let i = 0; i < produtos.length; i++) {
-                if (produtos[i].impostos && produtos[i].impostos.ICMS) {
-                    const icmsData = produtos[i].impostos.ICMS;
-                    auxiliarTable += `<tr><tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td></tr>`;
+            if (produtos && produtos.length > 0) {
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th></tr></thead><tbody>';
+                for (let i = 0; i < produtos.length; i++) {
+                    if (produtos[i].impostos && produtos[i].impostos.ICMS) {
+                        const icmsData = produtos[i].impostos.ICMS;
+                        if (icmsData.vICMS != null) {
+                            auxiliarTable += `<tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td></tr>`;
+                        }
+                    }
                 }
+                auxiliarTable += '</tbody></table>';
+            } else {
+                auxiliar = 'Não há produtos disponíveis.';
             }
-            auxiliarTable += '</tbody></table>';
             break;
 
         case "infoIcmsStProdsButton":
-            auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS ST</th><th>% ICMS ST</th><th>Valor ICMS ST</th></tr></thead><tbody>';
-            for (let i = 0; i < produtos.length; i++) {
-                if (produtos[i].impostos && produtos[i].impostos.ICMS && produtos[i].impostos.ICMS.type === 'ICMSST') {
-                    const icmsSTData = produtos[i].impostos.ICMS;
-                    auxiliarTable += `<tr><td>${produtos[i].nItem}</td><td>${produtos[i].xProd}</td><td>${icmsSTData.vBCST}</td><td>${icmsSTData.pICMSST}</td><td>${icmsSTData.vICMSST}</td></tr>`;
+            if (produtos && produtos.length > 0) {
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS ST</th><th>% ICMS ST</th><th>Valor ICMS ST</th></tr></thead><tbody>';
+                for (let i = 0; i < produtos.length; i++) {
+                    if (produtos[i].impostos && produtos[i].impostos.ICMS && produtos[i].impostos.ICMS.vICMSST != null) {
+                        const icmsSTData = produtos[i].impostos.ICMS;
+                        auxiliarTable += `<tr><td>${produtos[i].nItem}</td><td>${produtos[i].xProd}</td><td>${icmsSTData.vBCST}</td><td>${icmsSTData.pICMSST}</td><td>${icmsSTData.vICMSST}</td></tr>`;
+                    }
                 }
+                auxiliarTable += '</tbody></table>';
+            } else {
+                auxiliar = 'Não há produtos disponíveis.';
             }
-            auxiliarTable += '</tbody></table>';
             break;
     }
 
@@ -150,12 +238,13 @@ function mostrarInformacao(id) {
         mudarVisibilidade(infoArea);
         infoArea.value = auxiliar;
         tableAux.innerHTML = '';
+        document.getElementById('infoText').scrollIntoView({ behavior: 'smooth' });
     }
 
     if (auxiliarTable.length > 0) {
-
-        tableAux.innerHTML = auxiliarTable; // Inserimos a tabela dentro da div com a classe infoTable
+        tableAux.innerHTML = auxiliarTable;
         infoArea.style.display = 'none';
+        document.getElementById('infoTable').scrollIntoView({ behavior: 'smooth' });
     }
 
     ajustarAlturaTextArea(infoArea);
@@ -203,6 +292,7 @@ function extrairInformacoesEmitenteDestinatario(xmlDoc, tag, namespace) {
     };
 }
 
+
 function fornecedorEmitente(xmlDoc) {
     const namespace = "http://www.portalfiscal.inf.br/nfe";
     const emitente = extrairInformacoesEmitenteDestinatario(xmlDoc, 'emit', namespace);
@@ -217,12 +307,9 @@ function fornecedorEmitente(xmlDoc) {
         }
     }
 
-    const emitenteInfo = `Emitente: ${emitente.nome}\nCNPJ: ${emitente.cnpj}\nLogradouro: ${emitente.logradouro}\nNúmero: ${emitente.numero}\nBairro: ${emitente.bairro}\nMunicípio: ${emitente.municipio}\nUF: ${emitente.uf}\nCEP: ${emitente.cep}\nPaís: ${emitente.pais}`;
-    const destinatarioInfo = `Destinatário: ${destinatario.nome}\nCNPJ: ${destinatario.cnpj}\nLogradouro: ${destinatario.logradouro}\nNúmero: ${destinatario.numero}\nBairro: ${destinatario.bairro}\nMunicípio: ${destinatario.municipio}\nUF: ${destinatario.uf}\nCEP: ${destinatario.cep}\nPaís: ${destinatario.pais}`;
-
     return {
-        emitenteInfo,
-        destinatarioInfo,
+        emitente,
+        destinatario,
         numeroNF
     };
 }
@@ -296,15 +383,13 @@ function extrairProdutos(xmlDoc, namespace) {
 }
 
 function extractICMSData(ICMS) {
-    // Primeiro, garantimos que o ICMS tem filhos antes de tentar acessá-los.
     if (ICMS.children.length === 0) {
-        return {}; // Retorna um objeto vazio se não houver informações de ICMS.
+        return {};
     }
 
     const icmsType = ICMS.children[0].nodeName;
     const icmsNode = ICMS.children[0];
 
-    // Utilizamos o operador optional chaining (?.) e o operador de coalescência nula (??) para lidar com casos onde os elementos são undefined.
     return {
         type: icmsType,
         orig: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'orig')[0]?.textContent ?? 'Não disponível',
@@ -313,39 +398,42 @@ function extractICMSData(ICMS) {
         vBC: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBC')[0]?.textContent ?? null,
         pICMS: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMS')[0]?.textContent ?? null,
         vICMS: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMS')[0]?.textContent ?? null,
+        vBCST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBCST')[0]?.textContent ?? null,
+        pICMSST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMSST')[0]?.textContent ?? null,
+        vICMSST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMSST')[0]?.textContent ?? null,
+        vFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCP')[0]?.textContent ?? null,
+        vFCPST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCPST')[0]?.textContent ?? null,
+        pFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCP')[0]?.textContent ?? null,
+        pFCPST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCPST')[0]?.textContent ?? null
     };
 }
-
 
 function extractIPIData(IPI) {
     const ipiTrib = IPI.getElementsByTagNameNS(IPI.namespaceURI, 'IPITrib')[0];
     return {
-        cEnq: IPI.getElementsByTagNameNS(IPI.namespaceURI, 'cEnq')[0].textContent,
-        vBC: ipiTrib.getElementsByTagNameNS(IPI.namespaceURI, 'vBC')[0]?.textContent || null,
-        pIPI: ipiTrib.getElementsByTagNameNS(IPI.namespaceURI, 'pIPI')[0]?.textContent || null,
-        vIPI: ipiTrib.getElementsByTagNameNS(IPI.namespaceURI, 'vIPI')[0]?.textContent || null,
-        // Adicione outras propriedades relevantes conforme necessário
+        cEnq: IPI.getElementsByTagNameNS(IPI.namespaceURI, 'cEnq')[0]?.textContent ?? 'Não disponível',
+        vBC: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'vBC')[0]?.textContent ?? null,
+        pIPI: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'pIPI')[0]?.textContent ?? null,
+        vIPI: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'vIPI')[0]?.textContent ?? null
     };
 }
 
 function extractPISData(PIS) {
     const pisAliq = PIS.getElementsByTagNameNS(PIS.namespaceURI, 'PISAliq')[0];
     return {
-        CST: pisAliq.getElementsByTagNameNS(PIS.namespaceURI, 'CST')[0].textContent,
-        vBC: pisAliq.getElementsByTagNameNS(PIS.namespaceURI, 'vBC')[0].textContent,
-        pPIS: pisAliq.getElementsByTagNameNS(PIS.namespaceURI, 'pPIS')[0].textContent,
-        vPIS: pisAliq.getElementsByTagNameNS(PIS.namespaceURI, 'vPIS')[0].textContent,
-        // Adicione outras propriedades relevantes conforme necessário
+        CST: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'CST')[0]?.textContent ?? 'Não disponível',
+        vBC: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'vBC')[0]?.textContent ?? null,
+        pPIS: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'pPIS')[0]?.textContent ?? null,
+        vPIS: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'vPIS')[0]?.textContent ?? null
     };
 }
 
 function extractCOFNSData(COFINS) {
     const cofinsAliq = COFINS.getElementsByTagNameNS(COFINS.namespaceURI, 'COFINSAliq')[0];
     return {
-        CST: cofinsAliq.getElementsByTagNameNS(COFINS.namespaceURI, 'CST')[0].textContent,
-        vBC: cofinsAliq.getElementsByTagNameNS(COFINS.namespaceURI, 'vBC')[0].textContent,
-        pCOFINS: cofinsAliq.getElementsByTagNameNS(COFINS.namespaceURI, 'pCOFINS')[0].textContent,
-        vCOFINS: cofinsAliq.getElementsByTagNameNS(COFINS.namespaceURI, 'vCOFINS')[0].textContent,
-        // Adicione outras propriedades relevantes conforme necessário
+        CST: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'CST')[0]?.textContent ?? 'Não disponível',
+        vBC: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'vBC')[0]?.textContent ?? null,
+        pCOFINS: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'pCOFINS')[0]?.textContent ?? null,
+        vCOFINS: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'vCOFINS')[0]?.textContent ?? null
     };
 }

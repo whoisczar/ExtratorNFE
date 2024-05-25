@@ -134,6 +134,11 @@
                 </prod>
                 <imposto>
                     <ICMS>
+                        <ICMSST>
+                            <vBCST>1000.00</vBCST>
+                            <pICMSST>18.00</pICMSST>
+                            <vICMSST>180.00</vICMSST>
+                        </ICMSST>
                         <ICMS10>
                             <orig>0</orig>
                             <CST>10</CST>
