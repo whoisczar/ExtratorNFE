@@ -35,31 +35,6 @@ socialButton.addEventListener('click', function() {
     document.querySelector('.social').click();
 });
 
-document.getElementById('infoEmitenteButton').addEventListener('click', function() {
-    mostrarInformacao('infoEmitenteButton');
-});
-
-document.getElementById('infoDestinatarioButton').addEventListener('click', function() {
-    mostrarInformacao('infoDestinatarioButton');
-});
-
-document.getElementById('infoProdsButton').addEventListener('click', function() {
-    mostrarInformacao('infoProdsButton');
-});
-
-document.getElementById('InfoIpiProdsButton').addEventListener('click', function() {
-    mostrarInformacao('InfoIpiProdsButton');
-});
-
-document.getElementById('infoIcmsProdsButton').addEventListener('click', function() {
-    mostrarInformacao('infoIcmsProdsButton');
-});
-
-document.getElementById('infoIcmsStProdsButton').addEventListener('click', function() {
-    mostrarInformacao('infoIcmsStProdsButton');
-});
-
-
 // Eventos de arrastar e soltar
 dropZone.addEventListener('dragover', (event) => {
     event.preventDefault();
@@ -89,6 +64,41 @@ dropZone.addEventListener('click', (event) => {
         input.click();
     }
 });
+
+document.getElementById('infoEmitenteButton').addEventListener('click', function() {
+    mostrarInformacao('infoEmitenteButton');
+});
+
+document.getElementById('infoDestinatarioButton').addEventListener('click', function() {
+    mostrarInformacao('infoDestinatarioButton');
+});
+
+document.getElementById('infoProdsButton').addEventListener('click', function() {
+    mostrarInformacao('infoProdsButton');
+});
+
+document.getElementById('InfoIpiProdsButton').addEventListener('click', function() {
+    mostrarInformacao('InfoIpiProdsButton');
+});
+
+document.getElementById('infoIcmsProdsButton').addEventListener('click', function() {
+    mostrarInformacao('infoIcmsProdsButton');
+});
+
+document.getElementById('infoIcmsStProdsButton').addEventListener('click', function() {
+    mostrarInformacao('infoIcmsStProdsButton');
+});
+
+document.getElementById('infoPisButton').addEventListener('click', function() {
+    mostrarInformacao('infoPisButton');
+});
+
+document.getElementById('infoCofinsButton').addEventListener('click', function() {
+    mostrarInformacao('infoCofinsButton');
+});
+
+
+
 
 function processFile(file) {
     mudarVisibilidade(divBotoes);
@@ -158,33 +168,33 @@ function mostrarInformacao(id) {
     const tableAux = document.querySelector('.infoTable');
     switch (id) {
         case "infoEmitenteButton":
-            auxiliarTable = `<table><tbody>
+            auxiliarTable = `<table><thead><tr><th>Emitente</th><th>Informações</th></tr></thead><tbody>
                                 <tr><td>Nome / Razão Social:</td><td>${emitenteInfo.nome}</td></tr>
                                 <tr><td>CNPJ:</td><td>${emitenteInfo.cnpj}</td></tr>
                                 <tr><td>Endereço:</td><td> ${emitenteInfo.bairro}, ${emitenteInfo.logradouro}, N° ${emitenteInfo.numero}</td></tr>
                             </tbody></table>`; i++;
             break;
-
+    
         case "infoDestinatarioButton":
-            auxiliarTable = `<table><tbody>
+            auxiliarTable = `<table><thead><tr><th>Destinatário</th><th>Informações</th></tr></thead><tbody>
                                 <tr><td>Nome / Razão Social:</td><td>${destinatarioInfo.nome}</td></tr>
                                 <tr><td>CNPJ / CPF:</td><td>${destinatarioInfo.cnpj}</td></tr>
                                 <tr><td>Endereço:</td><td>${destinatarioInfo.bairro}, ${destinatarioInfo.logradouro}, ${destinatarioInfo.numero}</td></tr>
                             </tbody></table>`; i++;
             break;
-
+    
         case "infoProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>NCM</th><th>EMB</th><th>Qnt</th><th>Vlr Unt.</th><th>Valor Total</th></tr></thead><tbody>';
                 for (i = 0; i < produtos.length; i++) {
-                    auxiliarTable += `<tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${produtos[i].NCM}</td><td>${produtos[i].uCom}</td><td>${produtos[i].qCom}</td><td>${produtos[i].vUnCom}</td><td>${produtos[i].vProd}</td></tr>`;
+                    auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${produtos[i].NCM}</td><td>${produtos[i].uCom}</td><td>${produtos[i].qCom}</td><td>${produtos[i].vUnCom}</td><td>${produtos[i].vProd}</td></tr>`;
                 }
                 auxiliarTable += '</tbody></table>';
             } else {
                 auxiliar = 'Não há produtos disponíveis.';
             }
             break;
-
+    
         case "InfoIpiProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base IPI</th><th>Alíquota IPI</th><th>Valor IPI</th></tr></thead><tbody>';
@@ -192,7 +202,7 @@ function mostrarInformacao(id) {
                     if (produtos[i].impostos && produtos[i].impostos.IPI) {
                         const ipiData = produtos[i].impostos.IPI;
                         if (ipiData.vIPI != null) {
-                            auxiliarTable += `<tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${ipiData.vBC}</td><td>${ipiData.pIPI}</td><td>${ipiData.vIPI}</td></tr>`;
+                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${ipiData.vBC}</td><td>${ipiData.pIPI}</td><td>${ipiData.vIPI}</td></tr>`;
                         }
                     }
                 }
@@ -201,7 +211,7 @@ function mostrarInformacao(id) {
                 auxiliar = 'Não há produtos disponíveis.';
             }
             break;
-
+    
         case "infoIcmsProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th></tr></thead><tbody>';
@@ -209,7 +219,7 @@ function mostrarInformacao(id) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS) {
                         const icmsData = produtos[i].impostos.ICMS;
                         if (icmsData.vICMS != null) {
-                            auxiliarTable += `<tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td></tr>`;
+                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td></tr>`;
                         }
                     }
                 }
@@ -218,14 +228,14 @@ function mostrarInformacao(id) {
                 auxiliar = 'Não há produtos disponíveis.';
             }
             break;
-
+    
         case "infoIcmsStProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS ST</th><th>% ICMS ST</th><th>Valor ICMS ST</th></tr></thead><tbody>';
                 for (i = 0; i < produtos.length; i++) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS && produtos[i].impostos.ICMS.vICMSST != null) {
                         const icmsSTData = produtos[i].impostos.ICMS;
-                        auxiliarTable += `<tr><td>${produtos[i].nItem}</td><td>${produtos[i].xProd}</td><td>${icmsSTData.vBCST}</td><td>${icmsSTData.pICMSST}</td><td>${icmsSTData.vICMSST}</td></tr>`;
+                        auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsSTData.vBCST}</td><td>${icmsSTData.pICMSST}</td><td>${icmsSTData.vICMSST}</td></tr>`;
                     }
                 }
                 auxiliarTable += '</tbody></table>';
@@ -233,7 +243,41 @@ function mostrarInformacao(id) {
                 auxiliar = 'Não há produtos disponíveis.';
             }
             break;
-    }
+    
+        case "infoPisButton":
+            if (produtos && produtos.length > 0) {
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base PIS</th><th>Alíquota PIS</th><th>Valor PIS</th></tr></thead><tbody>';
+                for (i = 0; i < produtos.length; i++) {
+                    if (produtos[i].impostos && produtos[i].impostos.PIS) {
+                        const pisData = produtos[i].impostos.PIS;
+                        if (pisData.vPIS != null) {
+                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${pisData.vBC}</td><td>${pisData.pPIS}</td><td>${pisData.vPIS}</td></tr>`;
+                        }
+                    }
+                }
+                auxiliarTable += '</tbody></table>';
+            } else {
+                auxiliar = 'Não há produtos disponíveis.';
+            }
+            break;
+    
+        case "infoCofinsButton":
+            if (produtos && produtos.length > 0) {
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base COFINS</th><th>Alíquota COFINS</th><th>Valor COFINS</th></tr></thead><tbody>';
+                for (i = 0; i < produtos.length; i++) {
+                    if (produtos[i].impostos && produtos[i].impostos.COFINS) {
+                        const cofinsData = produtos[i].impostos.COFINS;
+                        if (cofinsData.vCOFINS != null) {
+                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${cofinsData.vBC}</td><td>${cofinsData.pCOFINS}</td><td>${cofinsData.vCOFINS}</td></tr>`;
+                        }
+                    }
+                }
+                auxiliarTable += '</tbody></table>';
+            } else {
+                auxiliar = 'Não há produtos disponíveis.';
+            }
+            break;
+    }    
 
     if (auxiliar.length > 0) {
         mudarVisibilidade(infoArea);
@@ -333,13 +377,13 @@ function extrairProdutos(xmlDoc, namespace) {
             const NCM = prodElement.getElementsByTagNameNS(namespace, 'NCM')[0]?.textContent || 'Não encontrado';
             const CFOP = prodElement.getElementsByTagNameNS(namespace, 'CFOP')[0]?.textContent || 'Não encontrado';
             const uCom = prodElement.getElementsByTagNameNS(namespace, 'uCom')[0]?.textContent || 'Não encontrado';
-            const qCom = prodElement.getElementsByTagNameNS(namespace, 'qCom')[0]?.textContent || 'Não encontrado';
-            const vUnCom = prodElement.getElementsByTagNameNS(namespace, 'vUnCom')[0]?.textContent || 'Não encontrado';
-            const vProd = prodElement.getElementsByTagNameNS(namespace, 'vProd')[0]?.textContent || 'Não encontrado';
+            const qCom = parseFloat(prodElement.getElementsByTagNameNS(namespace, 'qCom')[0]?.textContent.replace(',', '.') || '0').toFixed(2).replace('.', ',');
+            const vUnCom = parseFloat(prodElement.getElementsByTagNameNS(namespace, 'vUnCom')[0]?.textContent.replace(',', '.') || '0').toFixed(2).replace('.', ',');
+            const vProd = parseFloat(prodElement.getElementsByTagNameNS(namespace, 'vProd')[0]?.textContent.replace(',', '.') || '0').toFixed(2).replace('.', ',');
             const cEANTrib = prodElement.getElementsByTagNameNS(namespace, 'cEANTrib')[0]?.textContent || 'Não encontrado';
             const uTrib = prodElement.getElementsByTagNameNS(namespace, 'uTrib')[0]?.textContent || 'Não encontrado';
-            const qTrib = prodElement.getElementsByTagNameNS(namespace, 'qTrib')[0]?.textContent || 'Não encontrado';
-            const vUnTrib = prodElement.getElementsByTagNameNS(namespace, 'vUnTrib')[0]?.textContent || 'Não encontrado';
+            const qTrib = parseFloat(prodElement.getElementsByTagNameNS(namespace, 'qTrib')[0]?.textContent.replace(',', '.') || '0').toFixed(2).replace('.', ',');
+            const vUnTrib = parseFloat(prodElement.getElementsByTagNameNS(namespace, 'vUnTrib')[0]?.textContent.replace(',', '.') || '0').toFixed(2).replace('.', ',');
             const indTot = prodElement.getElementsByTagNameNS(namespace, 'indTot')[0]?.textContent || 'Não encontrado';
 
             // Extrair dados de impostos
@@ -398,16 +442,16 @@ function extractICMSData(ICMS) {
         orig: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'orig')[0]?.textContent ?? 'Não disponível',
         CST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'CST')[0]?.textContent ?? 'Não disponível',
         modBC: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'modBC')[0]?.textContent ?? null,
-        vBC: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBC')[0]?.textContent ?? null,
-        pICMS: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMS')[0]?.textContent ?? null,
-        vICMS: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMS')[0]?.textContent ?? null,
-        vBCST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBCST')[0]?.textContent ?? null,
-        pICMSST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMSST')[0]?.textContent ?? null,
-        vICMSST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMSST')[0]?.textContent ?? null,
-        vFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCP')[0]?.textContent ?? null,
-        vFCPST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCPST')[0]?.textContent ?? null,
-        pFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCP')[0]?.textContent ?? null,
-        pFCPST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCPST')[0]?.textContent ?? null
+        vBC: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBC')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBC')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        pICMS: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMS')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMS')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vICMS: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMS')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMS')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vBCST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBCST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBCST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        pICMSST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMSST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMSST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vICMSST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMSST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMSST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCP')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCP')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vFCPST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCPST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCPST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        pFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCP')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCP')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        pFCPST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCPST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCPST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null
     };
 }
 
@@ -415,9 +459,9 @@ function extractIPIData(IPI) {
     const ipiTrib = IPI.getElementsByTagNameNS(IPI.namespaceURI, 'IPITrib')[0];
     return {
         cEnq: IPI.getElementsByTagNameNS(IPI.namespaceURI, 'cEnq')[0]?.textContent ?? 'Não disponível',
-        vBC: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'vBC')[0]?.textContent ?? null,
-        pIPI: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'pIPI')[0]?.textContent ?? null,
-        vIPI: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'vIPI')[0]?.textContent ?? null
+        vBC: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'vBC')[0]?.textContent != null ? parseFloat(ipiTrib.getElementsByTagNameNS(IPI.namespaceURI, 'vBC')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        pIPI: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'pIPI')[0]?.textContent != null ? parseFloat(ipiTrib.getElementsByTagNameNS(IPI.namespaceURI, 'pIPI')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vIPI: ipiTrib?.getElementsByTagNameNS(IPI.namespaceURI, 'vIPI')[0]?.textContent != null ? parseFloat(ipiTrib.getElementsByTagNameNS(IPI.namespaceURI, 'vIPI')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null
     };
 }
 
@@ -425,9 +469,9 @@ function extractPISData(PIS) {
     const pisAliq = PIS.getElementsByTagNameNS(PIS.namespaceURI, 'PISAliq')[0];
     return {
         CST: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'CST')[0]?.textContent ?? 'Não disponível',
-        vBC: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'vBC')[0]?.textContent ?? null,
-        pPIS: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'pPIS')[0]?.textContent ?? null,
-        vPIS: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'vPIS')[0]?.textContent ?? null
+        vBC: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'vBC')[0]?.textContent != null ? parseFloat(pisAliq.getElementsByTagNameNS(PIS.namespaceURI, 'vBC')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        pPIS: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'pPIS')[0]?.textContent != null ? parseFloat(pisAliq.getElementsByTagNameNS(PIS.namespaceURI, 'pPIS')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vPIS: pisAliq?.getElementsByTagNameNS(PIS.namespaceURI, 'vPIS')[0]?.textContent != null ? parseFloat(pisAliq.getElementsByTagNameNS(PIS.namespaceURI, 'vPIS')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null
     };
 }
 
@@ -435,8 +479,8 @@ function extractCOFNSData(COFINS) {
     const cofinsAliq = COFINS.getElementsByTagNameNS(COFINS.namespaceURI, 'COFINSAliq')[0];
     return {
         CST: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'CST')[0]?.textContent ?? 'Não disponível',
-        vBC: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'vBC')[0]?.textContent ?? null,
-        pCOFINS: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'pCOFINS')[0]?.textContent ?? null,
-        vCOFINS: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'vCOFINS')[0]?.textContent ?? null
+        vBC: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'vBC')[0]?.textContent != null ? parseFloat(cofinsAliq.getElementsByTagNameNS(COFINS.namespaceURI, 'vBC')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        pCOFINS: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'pCOFINS')[0]?.textContent != null ? parseFloat(cofinsAliq.getElementsByTagNameNS(COFINS.namespaceURI, 'pCOFINS')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vCOFINS: cofinsAliq?.getElementsByTagNameNS(COFINS.namespaceURI, 'vCOFINS')[0]?.textContent != null ? parseFloat(cofinsAliq.getElementsByTagNameNS(COFINS.namespaceURI, 'vCOFINS')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null
     };
 }

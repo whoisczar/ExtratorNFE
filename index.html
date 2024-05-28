@@ -21,10 +21,10 @@
         <div class="fileSelectContainer">
             <h1>Selecione uma nota fiscal</h1>
             <h5>OBS: A nota tem que estar em arquivo XML</h5>
-            <div id="dropZone" class="dropZone" style="animation: infinite;">
+            <div id="dropZone" class="dropZone" >
                 Arraste e solte o arquivo aqui ou clique para selecionar
             </div>
-            <input class="inputButton" type="file" id="fileInput" style="display: none;">
+            <input class="inputButton" type="file" id="fileInput" style="display: none;" accept="application/XML">
         </div>
         <div class="infoNfeContainer">
             <h1 class="Title">Nenhuma informação <br> até o momento</h1>
@@ -35,8 +35,8 @@
                 <button id="infoIcmsProdsButton" class="infoIcmsProdsButton">ICMS</button>
                 <button id="infoIcmsStProdsButton" class="infoIcmsStProdsButton">ICMS ST</button>
                 <button id="InfoIpiProdsButton" class="InfoIpiProdsButton">IPI</button>
-                <button id="InfoPisProdsButton" class="InfoIpiProdsButton">PIS</button>
-                <button id="InfoCofinsProdsButton" class="InfoIpiProdsButton">COFINS</button>
+                <button id="infoPisButton" class="infoIpiProdsButton">PIS</button>
+                <button id="infoCofinsButton" class="infoIpiProdsButton">COFINS</button>
                 <textarea class="infoText" readonly="true" id="infoText" style="display: none;"></textarea>
                 <table class="infoTable" id="infoTable"></table><br>
             </div>
