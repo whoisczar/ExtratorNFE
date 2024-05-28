@@ -2,7 +2,7 @@
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(131, 86, 170, 1) 50%, rgba(0, 175, 255, 1) 100%);
-    margin: 0;
+    margin: 10px;
     padding: 0;
 }
 
@@ -50,9 +50,8 @@ img:hover {
 
 
 .fileSelectContainer,
-.infoNfeContainer {
-    margin: 50px auto;
-    padding: 30px;
+.infoNfeContainer,.InfoHeadContainer{
+    padding: 10px;
     max-width: 600px;
     background-color: rgba(255, 255, 255, 0.74);
     border-radius: 8px;
@@ -60,6 +59,21 @@ img:hover {
     text-align: center;
     align-items: center;
     justify-content: center;
+    resize: both;
+    transition: all 1s;
+}
+
+
+.InfoHeadContainer{
+    margin: 50px auto;
+}
+
+.bodyContainer{
+    align-items: center;
+    display: flex;
+    margin: 50px auto;
+    justify-content: center;
+    gap: 10px;
     resize: both;
 }
 
@@ -91,22 +105,21 @@ h1 {
 
 button {
     padding: 5px;
-    margin-top: 5px;
     color: #000;
     background-color: transparent;
     border: 1px double;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.5s;
+    margin: 5px;
 }
 
 button:hover {
-    padding: 15px;
+    transform: scale(1.1);
     background-color: #fff;
     color: #000;
     border-color: #000;
 }
-
 
 
 .infoTable {

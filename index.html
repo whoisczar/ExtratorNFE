@@ -6,36 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExtratorNFE</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://i.ibb.co/nQ6xQhW/Group-2.png" type="png/image">
 </head>
 
 <body>
     <img class="socialIMG" width="25" height="25" src="https://img.icons8.com/ios/50/linkedin.png" alt="linkedin" />
     <a class="social" href="https://www.linkedin.com/in/whoisczar/" aria-label="Perfil no LinkedIn de Gabriel Reis"></a>
-    <div class="fileSelectContainer">
-        <h1>Selecione uma nota fiscal</h1>
-        <h5>OBS: A nota tem que estar em arquivo XML</h5>
-        <div id="dropZone" class="dropZone" style="animation: infinite;">
-            Arraste e solte o arquivo aqui ou clique para selecionar
-        </div>
-        <input class="inputButton" type="file" id="fileInput" style="display: none;">
+
+    <div class="InfoHeadContainer">
+        <h1>ExtratorNFE</h1>
     </div>
-    <div class="infoNfeContainer">
-        <h3 class="Title">Nenhuma informação até o momento</h3>
-        <div class="customButton" style="display: none;">
-            <button id="infoEmitenteButton" class="infoEmitenteButton">Emitente</button>
-            <button id="infoDestinatarioButton" class="infoDestinatarioButton">Destinatário</button><br>
-            <button id="infoProdsButton" class="infoProdsButton">Visualizar produtos</button><br>
-            <button id="infoIcmsProdsButton" class="infoIcmsProdsButton">ICMS</button>
-            <button id="infoIcmsStProdsButton" class="infoIcmsStProdsButton">ICMS ST</button>
-            <button id="InfoIpiProdsButton" class="InfoIpiProdsButton">IPI</button><br><br>
-            <textarea class="infoText" readonly="true" id="infoText">Nenhuma informação ainda</textarea>
-            <table class="infoTable" id="infoTable"></table><br>
+
+    <div class="bodyContainer">
+        <div class="fileSelectContainer">
+            <h1>Selecione uma nota fiscal</h1>
+            <h5>OBS: A nota tem que estar em arquivo XML</h5>
+            <div id="dropZone" class="dropZone" style="animation: infinite;">
+                Arraste e solte o arquivo aqui ou clique para selecionar
+            </div>
+            <input class="inputButton" type="file" id="fileInput" style="display: none;">
         </div>
-        <a href="https://www.linkedin.com/in/whoisczar/">Criado por: Gabriel Reis</a>
-        <br><a href="https://icons8.com/">Icons by Icons8</a>
+        <div class="infoNfeContainer">
+            <h1 class="Title">Nenhuma informação <br> até o momento</h1>
+            <div class="customButton" style="display: none;">
+                <button id="infoEmitenteButton" class="infoEmitenteButton">Emitente</button>
+                <button id="infoDestinatarioButton" class="infoDestinatarioButton">Destinatário</button>
+                <button id="infoProdsButton" class="infoProdsButton">Visualizar produtos</button><br>
+                <button id="infoIcmsProdsButton" class="infoIcmsProdsButton">ICMS</button>
+                <button id="infoIcmsStProdsButton" class="infoIcmsStProdsButton">ICMS ST</button>
+                <button id="InfoIpiProdsButton" class="InfoIpiProdsButton">IPI</button>
+                <button id="InfoPisProdsButton" class="InfoIpiProdsButton">PIS</button>
+                <button id="InfoCofinsProdsButton" class="InfoIpiProdsButton">COFINS</button>
+                <textarea class="infoText" readonly="true" id="infoText" style="display: none;"></textarea>
+                <table class="infoTable" id="infoTable"></table><br>
+            </div>
+            <a href="https://www.linkedin.com/in/whoisczar/">Criado por: Gabriel Reis</a>
+            <br><a href="https://icons8.com/">Icons by Icons8</a>
+        </div>
     </div>
 
     <script src="script.js"></script>
-</body>
+    </body>
 
 </html>

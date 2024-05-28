@@ -154,6 +154,7 @@ function mostrarInformacao(id) {
     let auxiliar = '';
     let auxiliarTable = '';
     infoArea.value = '';
+    let i = 0;
     const tableAux = document.querySelector('.infoTable');
     switch (id) {
         case "infoEmitenteButton":
@@ -161,7 +162,7 @@ function mostrarInformacao(id) {
                                 <tr><td>Nome / Razão Social:</td><td>${emitenteInfo.nome}</td></tr>
                                 <tr><td>CNPJ:</td><td>${emitenteInfo.cnpj}</td></tr>
                                 <tr><td>Endereço:</td><td> ${emitenteInfo.bairro}, ${emitenteInfo.logradouro}, N° ${emitenteInfo.numero}</td></tr>
-                            </tbody></table>`;
+                            </tbody></table>`; i++;
             break;
 
         case "infoDestinatarioButton":
@@ -169,13 +170,13 @@ function mostrarInformacao(id) {
                                 <tr><td>Nome / Razão Social:</td><td>${destinatarioInfo.nome}</td></tr>
                                 <tr><td>CNPJ / CPF:</td><td>${destinatarioInfo.cnpj}</td></tr>
                                 <tr><td>Endereço:</td><td>${destinatarioInfo.bairro}, ${destinatarioInfo.logradouro}, ${destinatarioInfo.numero}</td></tr>
-                            </tbody></table>`;
+                            </tbody></table>`; i++;
             break;
 
         case "infoProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>NCM</th><th>EMB</th><th>Qnt</th><th>Vlr Unt.</th><th>Valor Total</th></tr></thead><tbody>';
-                for (let i = 0; i < produtos.length; i++) {
+                for (i = 0; i < produtos.length; i++) {
                     auxiliarTable += `<tr><td>${produtos[i].cProd}</td><td>${produtos[i].xProd}</td><td>${produtos[i].NCM}</td><td>${produtos[i].uCom}</td><td>${produtos[i].qCom}</td><td>${produtos[i].vUnCom}</td><td>${produtos[i].vProd}</td></tr>`;
                 }
                 auxiliarTable += '</tbody></table>';
@@ -187,7 +188,7 @@ function mostrarInformacao(id) {
         case "InfoIpiProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base IPI</th><th>Alíquota IPI</th><th>Valor IPI</th></tr></thead><tbody>';
-                for (let i = 0; i < produtos.length; i++) {
+                for (i = 0; i < produtos.length; i++) {
                     if (produtos[i].impostos && produtos[i].impostos.IPI) {
                         const ipiData = produtos[i].impostos.IPI;
                         if (ipiData.vIPI != null) {
@@ -204,7 +205,7 @@ function mostrarInformacao(id) {
         case "infoIcmsProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th></tr></thead><tbody>';
-                for (let i = 0; i < produtos.length; i++) {
+                for (i = 0; i < produtos.length; i++) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS) {
                         const icmsData = produtos[i].impostos.ICMS;
                         if (icmsData.vICMS != null) {
@@ -221,7 +222,7 @@ function mostrarInformacao(id) {
         case "infoIcmsStProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS ST</th><th>% ICMS ST</th><th>Valor ICMS ST</th></tr></thead><tbody>';
-                for (let i = 0; i < produtos.length; i++) {
+                for (i = 0; i < produtos.length; i++) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS && produtos[i].impostos.ICMS.vICMSST != null) {
                         const icmsSTData = produtos[i].impostos.ICMS;
                         auxiliarTable += `<tr><td>${produtos[i].nItem}</td><td>${produtos[i].xProd}</td><td>${icmsSTData.vBCST}</td><td>${icmsSTData.pICMSST}</td><td>${icmsSTData.vICMSST}</td></tr>`;
@@ -241,7 +242,9 @@ function mostrarInformacao(id) {
         document.getElementById('infoText').scrollIntoView({ behavior: 'smooth' });
     }
 
-    if (auxiliarTable.length > 0) {
+    if(i==0)alert('Nenhuma informação a respeito');
+    
+    else if (auxiliarTable.length > 0 && i!=0) {
         tableAux.innerHTML = auxiliarTable;
         infoArea.style.display = 'none';
         document.getElementById('infoTable').scrollIntoView({ behavior: 'smooth' });
