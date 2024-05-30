@@ -1,16 +1,33 @@
 /* Estilos Gerais */
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Lekton", monospace;
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(131, 86, 170, 1) 50%, rgba(0, 175, 255, 1) 100%);
     margin: 10px;
     padding: 0;
+}
+
+.lekton-regular {
+    font-family: "Lekton", monospace;
+    font-weight: 400;
+    font-style: normal;
+}
+  
+.lekton-bold {
+    font-family: "Lekton", monospace;
+    font-weight: 700;
+    font-style: normal;
+}
+  
+.lekton-regular-italic {
+    font-family: "Lekton", monospace;
+    font-weight: 400;
+    font-style: italic;
 }
 
 img {
     cursor: pointer;
     margin: 10px;
     padding: 5px;
-    width: -moz-fit-content;
     width: fit-content;
     background-color: rgba(255, 255, 255, 0.74);
     border-radius: 8px;
@@ -79,7 +96,6 @@ img:hover {
 }
 
 .infoNfeContainer {
-    width: -moz-fit-content;
     width: fit-content;
 }
 
@@ -135,9 +151,11 @@ button:hover {
     padding: 6px;
     text-align: center;
     justify-content: center;
+    color: #000000;
+    background-color: #ffffff3a;
 }
 
 .infoTable th {
-    background-color: #f2f2f2;
-    color: #333;
+    background-color: #ffffff;
+    color: #000000;
 }

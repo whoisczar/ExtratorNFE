@@ -3,6 +3,19 @@ const infoArea = document.querySelector('.infoText');
 const infoTitle = document.querySelector('.Title');
 const divBotoes = document.querySelector('.customButton');
 const dropZone = document.getElementById('dropZone');
+const buttonIds = [
+    'infoEmitenteButton',
+    'infoDestinatarioButton',
+    'infoProdsButton',
+    'InfoIpiProdsButton',
+    'infoIcmsProdsButton',
+    'infoIcmsStProdsButton',
+    'infoPisButton',
+    'infoCofinsButton',
+    'infoFcpButton',
+    'infoFcpStButton'
+];
+
 
 let produtos;
 let numeroNF = '';
@@ -65,40 +78,11 @@ dropZone.addEventListener('click', (event) => {
     }
 });
 
-document.getElementById('infoEmitenteButton').addEventListener('click', function() {
-    mostrarInformacao('infoEmitenteButton');
+buttonIds.forEach(id => {
+    document.getElementById(id).addEventListener('click', function() {
+        mostrarInformacao(id);
+    });
 });
-
-document.getElementById('infoDestinatarioButton').addEventListener('click', function() {
-    mostrarInformacao('infoDestinatarioButton');
-});
-
-document.getElementById('infoProdsButton').addEventListener('click', function() {
-    mostrarInformacao('infoProdsButton');
-});
-
-document.getElementById('InfoIpiProdsButton').addEventListener('click', function() {
-    mostrarInformacao('InfoIpiProdsButton');
-});
-
-document.getElementById('infoIcmsProdsButton').addEventListener('click', function() {
-    mostrarInformacao('infoIcmsProdsButton');
-});
-
-document.getElementById('infoIcmsStProdsButton').addEventListener('click', function() {
-    mostrarInformacao('infoIcmsStProdsButton');
-});
-
-document.getElementById('infoPisButton').addEventListener('click', function() {
-    mostrarInformacao('infoPisButton');
-});
-
-document.getElementById('infoCofinsButton').addEventListener('click', function() {
-    mostrarInformacao('infoCofinsButton');
-});
-
-
-
 
 function processFile(file) {
     mudarVisibilidade(divBotoes);
@@ -166,13 +150,16 @@ function mostrarInformacao(id) {
     infoArea.value = '';
     let i = 0;
     const tableAux = document.querySelector('.infoTable');
+    let hasData = false;
+
     switch (id) {
         case "infoEmitenteButton":
             auxiliarTable = `<table><thead><tr><th>Emitente</th><th>Informações</th></tr></thead><tbody>
                                 <tr><td>Nome / Razão Social:</td><td>${emitenteInfo.nome}</td></tr>
                                 <tr><td>CNPJ:</td><td>${emitenteInfo.cnpj}</td></tr>
                                 <tr><td>Endereço:</td><td> ${emitenteInfo.bairro}, ${emitenteInfo.logradouro}, N° ${emitenteInfo.numero}</td></tr>
-                            </tbody></table>`; i++;
+                            </tbody></table>`; 
+            hasData = true;
             break;
     
         case "infoDestinatarioButton":
@@ -180,7 +167,8 @@ function mostrarInformacao(id) {
                                 <tr><td>Nome / Razão Social:</td><td>${destinatarioInfo.nome}</td></tr>
                                 <tr><td>CNPJ / CPF:</td><td>${destinatarioInfo.cnpj}</td></tr>
                                 <tr><td>Endereço:</td><td>${destinatarioInfo.bairro}, ${destinatarioInfo.logradouro}, ${destinatarioInfo.numero}</td></tr>
-                            </tbody></table>`; i++;
+                            </tbody></table>`; 
+            hasData = true;
             break;
     
         case "infoProdsButton":
@@ -190,6 +178,7 @@ function mostrarInformacao(id) {
                     auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${produtos[i].NCM}</td><td>${produtos[i].uCom}</td><td>${produtos[i].qCom}</td><td>${produtos[i].vUnCom}</td><td>${produtos[i].vProd}</td></tr>`;
                 }
                 auxiliarTable += '</tbody></table>';
+                hasData = true;
             } else {
                 auxiliar = 'Não há produtos disponíveis.';
             }
@@ -203,6 +192,7 @@ function mostrarInformacao(id) {
                         const ipiData = produtos[i].impostos.IPI;
                         if (ipiData.vIPI != null) {
                             auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${ipiData.vBC}</td><td>${ipiData.pIPI}</td><td>${ipiData.vIPI}</td></tr>`;
+                            hasData = true;
                         }
                     }
                 }
@@ -220,6 +210,7 @@ function mostrarInformacao(id) {
                         const icmsData = produtos[i].impostos.ICMS;
                         if (icmsData.vICMS != null) {
                             auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td></tr>`;
+                            hasData = true;
                         }
                     }
                 }
@@ -236,6 +227,7 @@ function mostrarInformacao(id) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS && produtos[i].impostos.ICMS.vICMSST != null) {
                         const icmsSTData = produtos[i].impostos.ICMS;
                         auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsSTData.vBCST}</td><td>${icmsSTData.pICMSST}</td><td>${icmsSTData.vICMSST}</td></tr>`;
+                        hasData = true;
                     }
                 }
                 auxiliarTable += '</tbody></table>';
@@ -252,6 +244,7 @@ function mostrarInformacao(id) {
                         const pisData = produtos[i].impostos.PIS;
                         if (pisData.vPIS != null) {
                             auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${pisData.vBC}</td><td>${pisData.pPIS}</td><td>${pisData.vPIS}</td></tr>`;
+                            hasData = true;
                         }
                     }
                 }
@@ -269,6 +262,43 @@ function mostrarInformacao(id) {
                         const cofinsData = produtos[i].impostos.COFINS;
                         if (cofinsData.vCOFINS != null) {
                             auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${cofinsData.vBC}</td><td>${cofinsData.pCOFINS}</td><td>${cofinsData.vCOFINS}</td></tr>`;
+                            hasData = true;
+                        }
+                    }
+                }
+                auxiliarTable += '</tbody></table>';
+            } else {
+                auxiliar = 'Não há produtos disponíveis.';
+            }
+            break;
+    
+        case "infoFcpButton":
+            if (produtos && produtos.length > 0) {
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base FCP</th><th>Alíquota FCP</th><th>Valor FCP</th></tr></thead><tbody>';
+                for (i = 0; i < produtos.length; i++) {
+                    if (produtos[i].impostos && produtos[i].impostos.FCP) {
+                        const fcpData = produtos[i].impostos.FCP;
+                        if (fcpData.vFCP != null) {
+                            auxiliarTable += `<tr><td>${i + 1}</td><td>${produtos[i].xProd}</td><td>${fcpData.vBCFCP}</td><td>${fcpData.pFCP}</td><td>${fcpData.vFCP}</td></tr>`;
+                            hasData = true;
+                        }
+                    }
+                }
+                auxiliarTable += '</tbody></table>';
+            } else {
+                auxiliar = 'Não há produtos disponíveis.';
+            }
+            break;
+
+        case "infoFcpStButton":
+            if (produtos && produtos.length > 0) {
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base FCP ST</th><th>Alíquota FCP ST</th><th>Valor FCP ST</th></tr></thead><tbody>';
+                for (i = 0; i < produtos.length; i++) {
+                    if (produtos[i].impostos && produtos[i].impostos.FCPST) {
+                        const fcpSTData = produtos[i].impostos.FCPST;
+                        if (fcpSTData.vFCPST != null) {
+                            auxiliarTable += `<tr><td>${i + 1}</td><td>${produtos[i].xProd}</td><td>${fcpSTData.vBCFCPST}</td><td>${fcpSTData.pFCPST}</td><td>${fcpSTData.vFCPST}</td></tr>`;
+                            hasData = true;
                         }
                     }
                 }
@@ -279,16 +309,17 @@ function mostrarInformacao(id) {
             break;
     }    
 
+    if (!hasData) {
+        alert('Nenhuma informação a respeito');
+        return;
+    }
+
     if (auxiliar.length > 0) {
         mudarVisibilidade(infoArea);
         infoArea.value = auxiliar;
         tableAux.innerHTML = '';
         document.getElementById('infoText').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    if(i==0)alert('Nenhuma informação a respeito');
-    
-    else if (auxiliarTable.length > 0 && i!=0) {
+    } else if (auxiliarTable.length > 0) {
         tableAux.innerHTML = auxiliarTable;
         infoArea.style.display = 'none';
         document.getElementById('infoTable').scrollIntoView({ behavior: 'smooth' });
@@ -296,6 +327,7 @@ function mostrarInformacao(id) {
 
     ajustarAlturaTextArea(infoArea);
 }
+
 
 // Funções auxiliares
 function mudarVisibilidade(elemento) {

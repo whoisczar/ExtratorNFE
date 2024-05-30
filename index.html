@@ -5,6 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExtratorNFE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lekton:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="https://i.ibb.co/nQ6xQhW/Group-2.png" type="png/image">
 </head>
@@ -21,7 +25,7 @@
         <div class="fileSelectContainer">
             <h1>Selecione uma nota fiscal</h1>
             <h5>OBS: A nota tem que estar em arquivo XML</h5>
-            <div id="dropZone" class="dropZone" >
+            <div id="dropZone" class="dropZone">
                 Arraste e solte o arquivo aqui ou clique para selecionar
             </div>
             <input class="inputButton" type="file" id="fileInput" style="display: none;" accept="application/XML">
@@ -37,6 +41,8 @@
                 <button id="InfoIpiProdsButton" class="InfoIpiProdsButton">IPI</button>
                 <button id="infoPisButton" class="infoIpiProdsButton">PIS</button>
                 <button id="infoCofinsButton" class="infoIpiProdsButton">COFINS</button>
+                <button id="infoFcpButton" class="infoIpiProdsButton">FCP</button>
+                <button id="infoFcpStButton" class="infoIpiProdsButton">FCP ST</button>
                 <textarea class="infoText" readonly="true" id="infoText" style="display: none;"></textarea>
                 <table class="infoTable" id="infoTable"></table><br>
             </div>
@@ -46,6 +52,6 @@
     </div>
 
     <script src="script.js"></script>
-    </body>
+</body>
 
 </html>
