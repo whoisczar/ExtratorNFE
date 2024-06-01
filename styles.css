@@ -1,25 +1,17 @@
 /* Estilos Gerais */
 body {
     font-family: "Lekton", monospace;
-    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(131, 86, 170, 1) 50%, rgba(0, 175, 255, 1) 100%);
+    background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgb(75, 0, 130) 50%, rgba(0, 175, 255, 1) 100%);
     margin: 10px;
     padding: 0;
 }
 
-.lekton-regular {
-    font-family: "Lekton", monospace;
-    font-weight: 400;
-    font-style: normal;
-}
-  
 .lekton-bold {
-    font-family: "Lekton", monospace;
     font-weight: 700;
     font-style: normal;
 }
-  
+
 .lekton-regular-italic {
-    font-family: "Lekton", monospace;
     font-weight: 400;
     font-style: italic;
 }
@@ -36,6 +28,17 @@ img {
     transition: transform 0.5s;
 }
 
+img:hover {
+    transform: scale(1.1);
+}
+
+.socialIMG {
+    position: fixed;
+    top: 8px;
+    right: 16px;
+    font-size: 18px;
+}
+
 .dropZone {
     cursor: pointer;
     font-size: larger;
@@ -45,24 +48,14 @@ img {
     text-align: center;
     margin: 20px 0;
     transition: all 0.5s;
+    user-select: none;
 }
 
-.dropZone.dragover {
-    cursor: auto;
+.dropZone:hover,.dropZone.dragover{
+    cursor: pointer;
     border-color: #000;
-    transform: scale(1.1);
+    transform: scale(1.05);
     background-color: #ffffff90;
-}
-
-img:hover {
-    transform: scale(1.1);
-}
-
-.socialIMG {
-    position: absolute;
-    top: 8px;
-    right: 16px;
-    font-size: 18px;
 }
 
 .fileSelectContainer,
@@ -79,6 +72,7 @@ img:hover {
     justify-content: center;
     resize: both;
     transition: all 1s;
+    overflow: hidden;
 }
 
 .InfoHeadContainer {
@@ -93,6 +87,7 @@ img:hover {
     justify-content: center;
     gap: 10px;
     resize: both;
+    overflow: hidden;
 }
 
 .infoNfeContainer {
@@ -100,7 +95,12 @@ img:hover {
 }
 
 .fileSelectContainer {
-    max-width: 350px;
+    max-width: 250px;
+    position: fixed;
+    right: 75%;
+    top: 25%;
+    z-index: 99;
+    transition: all 0.5s;
 }
 
 .infoText {
@@ -136,6 +136,11 @@ button:hover {
     background-color: #fff;
     color: #000;
     border-color: #000;
+}
+
+button:focus {
+    transform: scale(1.1);
+    outline: 2px solid #000;
 }
 
 .infoTable {
