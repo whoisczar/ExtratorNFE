@@ -276,8 +276,8 @@ function mostrarInformacao(id) {
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base FCP</th><th>Alíquota FCP</th><th>Valor FCP</th></tr></thead><tbody>';
                 for (i = 0; i < produtos.length; i++) {
-                    if (produtos[i].impostos && produtos[i].impostos.FCP) {
-                        const fcpData = produtos[i].impostos.FCP;
+                    if (produtos[i].impostos && produtos[i].impostos.ICMS) {
+                        const fcpData = produtos[i].impostos.ICMS;
                         if (fcpData.vFCP != null) {
                             auxiliarTable += `<tr><td>${i + 1}</td><td>${produtos[i].xProd}</td><td>${fcpData.vBCFCP}</td><td>${fcpData.pFCP}</td><td>${fcpData.vFCP}</td></tr>`;
                             hasData = true;
@@ -289,13 +289,13 @@ function mostrarInformacao(id) {
                 auxiliar = 'Não há produtos disponíveis.';
             }
             break;
-
+    
         case "infoFcpStButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base FCP ST</th><th>Alíquota FCP ST</th><th>Valor FCP ST</th></tr></thead><tbody>';
                 for (i = 0; i < produtos.length; i++) {
-                    if (produtos[i].impostos && produtos[i].impostos.FCPST) {
-                        const fcpSTData = produtos[i].impostos.FCPST;
+                    if (produtos[i].impostos && produtos[i].impostos.ICMS) {
+                        const fcpSTData = produtos[i].impostos.ICMS;
                         if (fcpSTData.vFCPST != null) {
                             auxiliarTable += `<tr><td>${i + 1}</td><td>${produtos[i].xProd}</td><td>${fcpSTData.vBCFCPST}</td><td>${fcpSTData.pFCPST}</td><td>${fcpSTData.vFCPST}</td></tr>`;
                             hasData = true;
@@ -307,25 +307,21 @@ function mostrarInformacao(id) {
                 auxiliar = 'Não há produtos disponíveis.';
             }
             break;
-    }    
-
-    if (!hasData) {
-        alert('Nenhuma informação a respeito');
-        return;
+    
+        default:
+            auxiliar = 'Selecione uma opção válida.';
+            break;
     }
 
-    if (auxiliar.length > 0) {
-        mudarVisibilidade(infoArea);
-        infoArea.value = auxiliar;
-        tableAux.innerHTML = '';
-        document.getElementById('infoText').scrollIntoView({ behavior: 'smooth' });
-    } else if (auxiliarTable.length > 0) {
+    if (hasData) {
         tableAux.innerHTML = auxiliarTable;
         infoArea.style.display = 'none';
-        document.getElementById('infoTable').scrollIntoView({ behavior: 'smooth' });
+        tableAux.style.display = 'table';
+        tableAux.scrollIntoView({ behavior: 'smooth'});
+        ajustarAlturaTextArea(infoArea);
+    } else {
+        alert('Nenhuma informação a ser exibida');
     }
-
-    ajustarAlturaTextArea(infoArea);
 }
 
 

@@ -51,7 +51,7 @@ img:hover {
     user-select: none;
 }
 
-.dropZone:hover,.dropZone.dragover{
+.dropZone:hover, .dropZone.dragover {
     cursor: pointer;
     border-color: #000;
     transform: scale(1.05);
@@ -70,7 +70,7 @@ img:hover {
     text-align: center;
     align-items: center;
     justify-content: center;
-    resize: both;
+    resize: none;
     transition: all 1s;
     overflow: hidden;
 }
@@ -95,6 +95,7 @@ img:hover {
 }
 
 .fileSelectContainer {
+    width: auto;
     max-width: 250px;
     position: fixed;
     right: 75%;
@@ -163,4 +164,52 @@ button:focus {
 .infoTable th {
     background-color: #ffffff;
     color: #000000;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 1200px) {
+    .fileSelectContainer {
+        right: 65%;
+        top: 20%;
+    }
+}
+
+@media (max-width: 992px) {
+    .fileSelectContainer {
+        right: 55%;
+        top: 15%;
+    }
+    .bodyContainer {
+        flex-direction: column;
+        margin: 20px auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .fileSelectContainer {
+        right: 50%;
+        top: 10%;
+    }
+    .infoText {
+        width: 250px;
+    }
+    .infoTable th,
+    .infoTable td {
+        padding: 4px;
+    }
+}
+
+@media (max-width: 576px) {
+    .fileSelectContainer {
+        right: 45%;
+        top: 5%;
+    }
+    .infoText {
+        width: 200px;
+        font-size: medium;
+    }
+    .infoTable th,
+    .infoTable td {
+        padding: 2px;
+    }
 }
