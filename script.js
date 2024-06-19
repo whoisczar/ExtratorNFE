@@ -204,12 +204,12 @@ function mostrarInformacao(id) {
     
         case "infoIcmsProdsButton":
             if (produtos && produtos.length > 0) {
-                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th></tr></thead><tbody>';
+                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th><th>Outros</th></tr></thead><tbody>';
                 for (i = 0; i < produtos.length; i++) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS) {
                         const icmsData = produtos[i].impostos.ICMS;
                         if (icmsData.vICMS != null) {
-                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td></tr>`;
+                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td><td>${produtos[i].vProd - icmsData.vICMS}</td></tr>`;
                             hasData = true;
                         }
                     }
@@ -476,7 +476,7 @@ function extractICMSData(ICMS) {
         vBCST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBCST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vBCST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
         pICMSST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMSST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pICMSST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
         vICMSST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMSST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vICMSST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
-        vFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCP')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCP')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
+        vBCFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCP')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCP')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
         vFCPST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCPST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'vFCPST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
         pFCP: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCP')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCP')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null,
         pFCPST: icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCPST')[0]?.textContent != null ? parseFloat(icmsNode.getElementsByTagNameNS(ICMS.namespaceURI, 'pFCPST')[0]?.textContent.replace(',', '.')).toFixed(2).replace('.', ',') : null
