@@ -1,8 +1,10 @@
 const input = document.querySelector('#fileInput');
 const infoArea = document.querySelector('.infoText');
+const infoHead = document.querySelector('.InfoHeadContainer');
 const infoTitle = document.querySelector('.Title');
-const divBotoes = document.querySelector('.customButton');
+const divBotoes = document.querySelector('.infoNfeContainer');
 const dropZone = document.getElementById('dropZone');
+const closeButton = document.querySelector('.closeButton'); // Corrigido para usar querySelector
 const buttonIds = [
     'infoEmitenteButton',
     'infoDestinatarioButton',
@@ -16,7 +18,6 @@ const buttonIds = [
     'infoFcpStButton'
 ];
 
-
 let produtos;
 let numeroNF = '';
 let emitenteInfo;
@@ -25,16 +26,18 @@ let destinatarioInfo;
 // Botões Auxiliares
 const botaoInput = document.querySelector('.inputButton');
 const socialButton = document.querySelector('.socialIMG');
+const btnHelp = document.querySelector(".titleInfo img[alt='Ajuda']"); // Botão de ajuda
 
-// Botões de informações
-const infoEmitenteButton = document.querySelector('.infoEmitenteButton');
-const infoDestinatarioButton = document.querySelector('.infoDestinatarioButton');
-const infoIcmsProdsButton = document.querySelector('.infoIcmsProdsButton');
-const InfoIpiProdsButton = document.querySelector('.InfoIpiProdsButton');
-const infoProdsButton = document.querySelector('.infoProdsButton');
-const infoIcmsStProdsButton = document.querySelector('.infoIcmsStProdsButton');
+// Modal elements
+const modal = document.getElementById("helpModal");
+const spanClose = document.querySelector(".modal-content .close");
 
 // Leitores de Evento
+closeButton.addEventListener('click', function() {
+    mudarVisibilidade(divBotoes);
+    mudarVisibilidade(infoHead);
+});
+
 input.addEventListener('change', function() {
     processFile(this.files[0]);
 });
@@ -85,7 +88,11 @@ buttonIds.forEach(id => {
 });
 
 function processFile(file) {
-    mudarVisibilidade(divBotoes);
+    if (!file.name.endsWith('.xml')) {
+        alert('Por favor, selecione um arquivo XML.');
+        return;
+    }
+
     const leitor = new FileReader();
 
     leitor.addEventListener('load', function() {
@@ -93,15 +100,17 @@ function processFile(file) {
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(xmlString, "application/xml");
 
-        mudarVisibilidade(infoArea);
-        mudarVisibilidade(divBotoes);
+        if (divBotoes.style.display === 'none') {
+            mudarVisibilidade(divBotoes);
+            mudarVisibilidade(infoHead);
+        }
         ajustarAlturaTextArea(infoArea);
 
         const auxiliar = fornecedorEmitente(xmlDoc);
         emitenteInfo = auxiliar.emitente;
         destinatarioInfo = auxiliar.destinatario;
-        numeroNF = auxiliar.numeroNF; // Correção aqui
-        infoEmitenteButton.click();
+        numeroNF = auxiliar.numeroNF;
+        document.getElementById('infoEmitenteButton').click();
 
         produtos = extrairProdutos(xmlDoc, "http://www.portalfiscal.inf.br/nfe");
         infoTitle.innerText = `NF: ${numeroNF}`;
@@ -114,35 +123,21 @@ function processFile(file) {
     }
 }
 
-function processFile(file) {
-    mudarVisibilidade(divBotoes);
-    const leitor = new FileReader();
+// Modal functionality
+btnHelp.addEventListener('click', function() {
+    modal.style.display = "flex";
+});
 
-    leitor.addEventListener('load', function() {
-        const xmlString = leitor.result;
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlString, "application/xml");
+spanClose.addEventListener('click', function() {
+    modal.style.display = "none";
+});
 
-        mudarVisibilidade(infoArea);
-        mudarVisibilidade(divBotoes);
-        ajustarAlturaTextArea(infoArea);
-
-        const auxiliar = fornecedorEmitente(xmlDoc);
-        emitenteInfo = auxiliar.emitente;
-        destinatarioInfo = auxiliar.destinatario;
-        numeroNF = auxiliar.numeroNF; // Correção aqui
-        infoEmitenteButton.click();
-
-        produtos = extrairProdutos(xmlDoc, "http://www.portalfiscal.inf.br/nfe");
-        infoTitle.innerText = `NF: ${numeroNF}`;
-    });
-
-    if (file) {
-        leitor.readAsText(file);
-    } else {
-        alert('Selecione um arquivo!');
+window.addEventListener('click', function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
     }
-}
+});
+
 
 function mostrarInformacao(id) {
     let auxiliar = '';
@@ -208,8 +203,10 @@ function mostrarInformacao(id) {
                 for (i = 0; i < produtos.length; i++) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS) {
                         const icmsData = produtos[i].impostos.ICMS;
+                        const vBC = parseFloat(icmsData.vBC) || 0;
+                        const vProd = parseFloat(produtos[i].vProd) || 0;
                         if (icmsData.vICMS != null) {
-                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td><td>${produtos[i].vProd - icmsData.vICMS}</td></tr>`;
+                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td><td>R$ ${vProd - vBC}</td></tr>`;
                             hasData = true;
                         }
                     }
@@ -279,7 +276,7 @@ function mostrarInformacao(id) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS) {
                         const fcpData = produtos[i].impostos.ICMS;
                         if (fcpData.vFCP != null) {
-                            auxiliarTable += `<tr><td>${i + 1}</td><td>${produtos[i].xProd}</td><td>${fcpData.vBCFCP}</td><td>${fcpData.pFCP}</td><td>${fcpData.vFCP}</td></tr>`;
+                            auxiliarTable += `<tr><td>${i + 1}</td><td>${produtos[i].xProd}</td><td>${fcpData.vBC}</td><td>${fcpData.pFCP}</td><td>${fcpData.vFCP}</td></tr>`;
                             hasData = true;
                         }
                     }
@@ -297,7 +294,7 @@ function mostrarInformacao(id) {
                     if (produtos[i].impostos && produtos[i].impostos.ICMS) {
                         const fcpSTData = produtos[i].impostos.ICMS;
                         if (fcpSTData.vFCPST != null) {
-                            auxiliarTable += `<tr><td>${i + 1}</td><td>${produtos[i].xProd}</td><td>${fcpSTData.vBCFCPST}</td><td>${fcpSTData.pFCPST}</td><td>${fcpSTData.vFCPST}</td></tr>`;
+                            auxiliarTable += `<tr><td>${i + 1}</td><td>${produtos[i].xProd}</td><td>${fcpSTData.vBCFCPST}</td><td>${fcpSTData.vBCFCPST}</td><td>${fcpSTData.vFCPST}</td></tr>`;
                             hasData = true;
                         }
                     }
@@ -317,7 +314,7 @@ function mostrarInformacao(id) {
         tableAux.innerHTML = auxiliarTable;
         infoArea.style.display = 'none';
         tableAux.style.display = 'table';
-        tableAux.scrollIntoView({ behavior: 'smooth'});
+        infoArea.scrollIntoView({ behavior: 'smooth'});
         ajustarAlturaTextArea(infoArea);
     } else {
         alert('Nenhuma informação a ser exibida');
@@ -329,6 +326,9 @@ function mostrarInformacao(id) {
 function mudarVisibilidade(elemento) {
     if (elemento.style.display === 'none' || elemento.style.display === '') {
         elemento.style.display = 'block';
+    }
+    else{
+        elemento.style.display = 'none';
     }
 }
 

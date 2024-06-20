@@ -4,11 +4,13 @@ body {
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgb(75, 0, 130) 50%, rgba(0, 175, 255, 1) 100%);
     margin: 10px;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .lekton-bold {
     font-weight: 700;
-    font-style: normal;
 }
 
 .lekton-regular-italic {
@@ -16,6 +18,7 @@ body {
     font-style: italic;
 }
 
+/* Estilo para Imagens */
 img {
     cursor: pointer;
     margin: 10px;
@@ -39,6 +42,7 @@ img:hover {
     font-size: 18px;
 }
 
+/* Estilo para Zona de Arrastar e Soltar Arquivo */
 .dropZone {
     cursor: pointer;
     font-size: larger;
@@ -52,12 +56,12 @@ img:hover {
 }
 
 .dropZone:hover, .dropZone.dragover {
-    cursor: pointer;
     border-color: #000;
-    transform: scale(1.05);
+    transform: scale(1.01);
     background-color: #ffffff90;
 }
 
+/* Estilo para Containers Gerais */
 .fileSelectContainer,
 .infoNfeContainer,
 .InfoHeadContainer {
@@ -70,9 +74,15 @@ img:hover {
     text-align: center;
     align-items: center;
     justify-content: center;
-    resize: none;
     transition: all 1s;
     overflow: hidden;
+}
+
+.titleInfo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 10px;
 }
 
 .InfoHeadContainer {
@@ -81,17 +91,26 @@ img:hover {
 }
 
 .bodyContainer {
-    align-items: center;
     display: flex;
-    margin: 50px auto;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    margin: 50px auto;
     gap: 10px;
-    resize: both;
     overflow: hidden;
 }
 
+/* Estilo para Containers Específicos */
 .infoNfeContainer {
-    width: fit-content;
+    position: relative; /* Importante para o posicionamento absoluto do botão */
+    padding-right: 30px; /* Espaço extra à direita para o botão */
+    overflow: hidden; /* Garante que o botão não saia do container */
+}
+
+.bodyInfoTitle {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os itens ao centro */
+    justify-content: center;
 }
 
 .fileSelectContainer {
@@ -117,6 +136,7 @@ img:hover {
     transition: all 0.5s;
 }
 
+/* Estilo para Títulos e Botões */
 h1 {
     color: #333;
 }
@@ -132,7 +152,7 @@ button {
     margin: 5px;
 }
 
-button:hover {
+button:hover{
     transform: scale(1.1);
     background-color: #fff;
     color: #000;
@@ -140,10 +160,20 @@ button:hover {
 }
 
 button:focus {
-    transform: scale(1.1);
+    background-color: #fff;
+    color: #000;
+    border-color: #000;
     outline: 2px solid #000;
 }
+.titleInfo img[alt='Ajuda'] {
+    background-color: transparent;
+    padding: 0;
+    border: none; 
+    box-shadow: none; 
+    transition: transform 0.3s;
+}
 
+/* Estilo para Tabela de Informações */
 .infoTable {
     margin: 0 auto;
     width: auto;
@@ -151,65 +181,98 @@ button:focus {
     height: auto;
 }
 
-.infoTable th,
-.infoTable td {
+.infoTable th, .infoTable td {
     border: 1px solid #000000;
-    padding: 6px;
+    padding: 5px;
     text-align: center;
-    justify-content: center;
     color: #000000;
     background-color: #ffffff3a;
 }
 
-.infoTable th {
-    background-color: #ffffff;
-    color: #000000;
+.infoNfeContainer {
+    position: relative; /* Garante que a posição absoluta do closeButton seja relativa a este container */
+    padding-right: 10px;
+    padding-left: 10px; /* Espaço extra à direita para o botão */
+    overflow: hidden; /* Garante que o botão não saia do container */
 }
 
-/* Media Queries para Responsividade */
-@media (max-width: 1200px) {
-    .fileSelectContainer {
-        right: 65%;
-        top: 20%;
-    }
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 8px 12px;
+    color: #000;
+    background-color: transparent;
+    border: 2px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    z-index: 99; /* Garante que o botão esteja acima dos demais conteúdos */
 }
 
-@media (max-width: 992px) {
-    .fileSelectContainer {
-        right: 55%;
-        top: 15%;
-    }
-    .bodyContainer {
-        flex-direction: column;
-        margin: 20px auto;
-    }
+.closeButton:hover {
+    background-color: #cc0000; /* Vermelho mais escuro */
+    color: #fff; /* Cor branca para melhorar a legibilidade */
 }
 
-@media (max-width: 768px) {
-    .fileSelectContainer {
-        right: 50%;
-        top: 10%;
-    }
-    .infoText {
-        width: 250px;
-    }
-    .infoTable th,
-    .infoTable td {
-        padding: 4px;
-    }
+/* Estilos para o modal */
+.modal {
+    display: none; /* Oculto por padrão */
+    position: fixed;
+    z-index: 100; /* Acima de todo o conteúdo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro */
+    justify-content: center;
+    align-items: center;
 }
 
-@media (max-width: 576px) {
-    .fileSelectContainer {
-        right: 45%;
-        top: 5%;
-    }
-    .infoText {
-        width: 200px;
-        font-size: medium;
-    }
-    .infoTable th,
-    .infoTable td {
-        padding: 2px;
-    }
+/* Estilos para o modal */
+.modal {
+    display: none; /* Oculto por padrão */
+    position: fixed;
+    z-index: 100; /* Acima de todo o conteúdo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Permite rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(2px); /* Desfoque */
+}
+
+.modal-content {
+    background-color: rgba(255, 255, 255, 0.74);
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    text-align: left;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
 }
