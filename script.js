@@ -1,7 +1,7 @@
 const input = document.querySelector('#fileInput');
-const infoArea = document.querySelector('.infoText');
+const infoArea = document.querySelector('.InfoText');
 const infoHead = document.querySelector('.infoHeadContainer');
-const infoTitle = document.querySelector('.title');
+const infoTitle = document.querySelector('.Title');
 const divBotoes = document.querySelector('.infoNfeContainer');
 const dropZone = document.getElementById('dropZone');
 const closeButton = document.querySelector('.closeButton'); // Corrigido para usar querySelector
