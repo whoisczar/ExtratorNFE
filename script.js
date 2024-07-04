@@ -1,7 +1,7 @@
 const input = document.querySelector('#fileInput');
 const infoArea = document.querySelector('.infoText');
-const infoHead = document.querySelector('.InfoHeadContainer');
-const infoTitle = document.querySelector('.Title');
+const infoHead = document.querySelector('.infoHeadContainer');
+const infoTitle = document.querySelector('.title');
 const divBotoes = document.querySelector('.infoNfeContainer');
 const dropZone = document.getElementById('dropZone');
 const closeButton = document.querySelector('.closeButton'); // Corrigido para usar querySelector
@@ -206,7 +206,7 @@ function mostrarInformacao(id) {
                         const vBC = parseFloat(icmsData.vBC) || 0;
                         const vProd = parseFloat(produtos[i].vProd) || 0;
                         if (icmsData.vICMS != null) {
-                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${vBC}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS}</td><td>R$ ${vProd - vBC}</td></tr>`;
+                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${vBC.toFixed(2)}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS.toFixed(2)}</td><td>R$ ${(vProd - vBC).toFixed(2)}</td></tr>`;
                             hasData = true;
                         }
                     }
