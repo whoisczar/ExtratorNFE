@@ -1,6 +1,5 @@
 const input = document.querySelector('#fileInput');
-const infoArea = document.querySelector('.InfoText');
-const infoHead = document.querySelector('.infoHeadContainer');
+const infoArea = document.querySelector('.infoText');
 const infoTitle = document.querySelector('.Title');
 const divBotoes = document.querySelector('.infoNfeContainer');
 const dropZone = document.getElementById('dropZone');
@@ -35,7 +34,7 @@ const spanClose = document.querySelector(".modal-content .close");
 // Leitores de Evento
 closeButton.addEventListener('click', function() {
     mudarVisibilidade(divBotoes);
-    mudarVisibilidade(infoHead);
+    mudarVisibilidade(document.querySelector('.InfoHeadContainer'));
 });
 
 input.addEventListener('change', function() {
@@ -88,7 +87,7 @@ buttonIds.forEach(id => {
 });
 
 function processFile(file) {
-    if (!file.name.endsWith('.xml')) {
+    if (!file.name.endsWith('.xml'||'.XML')) {
         alert('Por favor, selecione um arquivo XML.');
         return;
     }
@@ -102,7 +101,7 @@ function processFile(file) {
 
         if (divBotoes.style.display === 'none') {
             mudarVisibilidade(divBotoes);
-            mudarVisibilidade(infoHead);
+            mudarVisibilidade(document.querySelector('.InfoHeadContainer'));
         }
         ajustarAlturaTextArea(infoArea);
 
@@ -138,6 +137,19 @@ window.addEventListener('click', function(event) {
     }
 });
 
+// Funções auxiliares
+function mudarVisibilidade(elemento) {
+    if (elemento.style.display === 'none' || elemento.style.display === '') {
+        elemento.style.display = 'block';
+    } else {
+        elemento.style.display = 'none';
+    }
+}
+
+function ajustarAlturaTextArea(textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
+}
 
 function mostrarInformacao(id) {
     let auxiliar = '';
@@ -197,25 +209,25 @@ function mostrarInformacao(id) {
             }
             break;
     
-        case "infoIcmsProdsButton":
-            if (produtos && produtos.length > 0) {
-                auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th><th>Outros</th></tr></thead><tbody>';
-                for (i = 0; i < produtos.length; i++) {
-                    if (produtos[i].impostos && produtos[i].impostos.ICMS) {
-                        const icmsData = produtos[i].impostos.ICMS;
-                        const vBC = parseFloat(icmsData.vBC) || 0;
-                        const vProd = parseFloat(produtos[i].vProd) || 0;
-                        if (icmsData.vICMS != null) {
-                            auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${vBC.toFixed(2)}</td><td>${icmsData.pICMS}</td><td>${icmsData.vICMS.toFixed(2)}</td><td>R$ ${(vProd - vBC).toFixed(2)}</td></tr>`;
-                            hasData = true;
+            case "infoIcmsProdsButton":
+                if (produtos && produtos.length > 0) {
+                    auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th><th>Outros</th></tr></thead><tbody>';
+                    for (let i = 0; i < produtos.length; i++) {
+                        if (produtos[i].impostos && produtos[i].impostos.ICMS) {
+                            const icmsData = produtos[i].impostos.ICMS;
+                            const vBC = parseFloat(icmsData.vBC) || 0;
+                            const vProd = parseFloat(produtos[i].vProd) || 0;
+                            if (icmsData.vICMS != null) {
+                                auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${vBC.toFixed(2).replace('.', ',') }</td><td>${icmsData.pICMS}</td><td>${parseFloat(icmsData.vICMS).toFixed(2).replace('.', ',') }</td><td>R$ ${(vProd - vBC).toFixed(2).replace('.', ',') }</td></tr>`;
+                                hasData = true;
+                            }
                         }
                     }
+                    auxiliarTable += '</tbody></table>';
+                } else {
+                    auxiliar = 'Não há produtos disponíveis.';
                 }
-                auxiliarTable += '</tbody></table>';
-            } else {
-                auxiliar = 'Não há produtos disponíveis.';
-            }
-            break;
+                break;            
     
         case "infoIcmsStProdsButton":
             if (produtos && produtos.length > 0) {
@@ -322,20 +334,6 @@ function mostrarInformacao(id) {
 }
 
 
-// Funções auxiliares
-function mudarVisibilidade(elemento) {
-    if (elemento.style.display === 'none' || elemento.style.display === '') {
-        elemento.style.display = 'block';
-    }
-    else{
-        elemento.style.display = 'none';
-    }
-}
-
-function ajustarAlturaTextArea(textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = textarea.scrollHeight + 'px';
-}
 
 // Funções principais
 function extrairInformacoesEmitenteDestinatario(xmlDoc, tag, namespace) {
