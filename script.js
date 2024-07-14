@@ -211,14 +211,15 @@ function mostrarInformacao(id) {
     
             case "infoIcmsProdsButton":
                 if (produtos && produtos.length > 0) {
-                    auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th><th>Outros</th></tr></thead><tbody>';
+                    auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS</th><th>Alíquota ICMS</th><th>Valor ICMS</th><th>Valor produto</th></tr></thead><tbody>';
                     for (let i = 0; i < produtos.length; i++) {
                         if (produtos[i].impostos && produtos[i].impostos.ICMS) {
                             const icmsData = produtos[i].impostos.ICMS;
-                            const vBC = parseFloat(icmsData.vBC) || 0;
-                            const vProd = parseFloat(produtos[i].vProd) || 0;
-                            if (icmsData.vICMS != null) {
-                                auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${vBC.toFixed(2).replace('.', ',') }</td><td>${icmsData.pICMS}</td><td>${parseFloat(icmsData.vICMS).toFixed(2).replace('.', ',') }</td><td>R$ ${(vProd - vBC).toFixed(2).replace('.', ',') }</td></tr>`;
+                            if (icmsData.vICMS != null && icmsData.vBC != null) {
+                                const vBC = parseFloat(icmsData.vBC.replace(',', '.')) || 0;
+                                const vProd = parseFloat(produtos[i].vProd.replace(',', '.')) || 0;
+                                const valorProduto = (vProd - vBC).toFixed(2).replace('.', ',');
+                                auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${parseFloat(icmsData.vICMS).toFixed(2).replace('.', ',')}</td><td>R$ ${valorProduto}</td></tr>`;
                                 hasData = true;
                             }
                         }
@@ -227,8 +228,8 @@ function mostrarInformacao(id) {
                 } else {
                     auxiliar = 'Não há produtos disponíveis.';
                 }
-                break;            
-    
+                break;
+            
         case "infoIcmsStProdsButton":
             if (produtos && produtos.length > 0) {
                 auxiliarTable = '<table><thead><tr><th>N°</th><th>Produto</th><th>Base ICMS ST</th><th>% ICMS ST</th><th>Valor ICMS ST</th></tr></thead><tbody>';

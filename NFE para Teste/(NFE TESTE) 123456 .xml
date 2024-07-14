@@ -81,7 +81,7 @@
                         <orig>0</orig>
                         <CST>00</CST>
                         <modBC>3</modBC>
-                        <vBC>500.00</vBC>
+                        <vBC>345.10</vBC>
                         <pICMS>18.00</pICMS>
                         <vICMS>90.00</vICMS>
                     </ICMS00>
@@ -97,7 +97,7 @@
                 <PIS>
                     <PISAliq>
                         <CST>01</CST>
-                        <vBC>500.00</vBC>
+                        <vBC>355.10</vBC>
                         <pPIS>1.65</pPIS>
                         <vPIS>8.25</vPIS>
                     </PISAliq>
