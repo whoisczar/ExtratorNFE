@@ -11,13 +11,13 @@ Ferramentas Utilizadas:
 
 **Material de Estudo**
 
--[Portal da NFE - Conteúdo Educacional][link1]
+- [Portal da NFE - Conteúdo Educacional][link1]
 
-*[Detalhes Técnicos da NFE][link2]
+- [Detalhes Técnicos da NFE][link2]
 
-+[Legislação e Manuais da NFE][link3]
+- [Legislação e Manuais da NFE][link3]
 
--[Lendo e Renderizando Arquivos XML com JavaScript][link4]
+- [Lendo e Renderizando Arquivos XML com JavaScript][link4]
 
 Para utilizar o ExtratorNFE, você pode acessar o projeto através do seguinte link:
 
