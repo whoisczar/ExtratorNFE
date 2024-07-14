@@ -1,4 +1,4 @@
-ExtratorNFE
+**ExtratorNFE**
 
 Este projeto visa desenvolver uma ferramenta visual intuitiva para o gerenciamento de notas fiscais eletrônicas (NFE) emitidas pelo SEFAZ.
 O objetivo principal é oferecer uma interface intuitiva para filtrar e visualizar informações de notas fiscais eletrônicas de forma eficiente.
@@ -9,12 +9,15 @@ Ferramentas Utilizadas:
     CSS
     HTML5
 
-Material de Estudo:
+**Material de Estudo**
 
-[Portal da NFE - Conteúdo Educacional][link1]
-[Detalhes Técnicos da NFE][link2]
-[Legislação e Manuais da NFE][link3]
-[Lendo e Renderizando Arquivos XML com JavaScript][link4]
+-[Portal da NFE - Conteúdo Educacional][link1]
+
+*[Detalhes Técnicos da NFE][link2]
+
++[Legislação e Manuais da NFE][link3]
+
+-[Lendo e Renderizando Arquivos XML com JavaScript][link4]
 
 Para utilizar o ExtratorNFE, você pode acessar o projeto através do seguinte link:
 
