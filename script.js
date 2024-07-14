@@ -218,7 +218,7 @@ function mostrarInformacao(id) {
                             if (icmsData.vICMS != null && icmsData.vBC != null) {
                                 const vBC = parseFloat(icmsData.vBC.replace(',', '.')) || 0;
                                 const vProd = parseFloat(produtos[i].vProd.replace(',', '.')) || 0;
-                                const valorProduto = (vProd - vBC).toFixed(2).replace('.', ',');
+                                const valorProduto = (vProd - vBC).toFixed(2).replace('.', ',');//Ajuste para calcular valor
                                 auxiliarTable += `<tr><td>${i+1}</td><td>${produtos[i].xProd}</td><td>${icmsData.vBC}</td><td>${icmsData.pICMS}</td><td>${parseFloat(icmsData.vICMS).toFixed(2).replace('.', ',')}</td><td>R$ ${valorProduto}</td></tr>`;
                                 hasData = true;
                             }
