@@ -11,13 +11,17 @@ Ferramentas Utilizadas:
 
 Material de Estudo:
 
-[Portal da NFE - Conteúdo Educacional][https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=ndIjl+iEFdE=]
-[Detalhes Técnicos da NFE][https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=BMPFMBoln3w=]
-[Legislação e Manuais da NFE][https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=hXzemuyNHW4=]
-[Lendo e Renderizando Arquivos XML com JavaScript][https://www.mundojs.com.br/2020/05/13/lendo-e-renderizando-arquivos-xml-com-javascript/]
+[Portal da NFE - Conteúdo Educacional][link1]
+[Detalhes Técnicos da NFE][link2]
+[Legislação e Manuais da NFE][link3]
+[Lendo e Renderizando Arquivos XML com JavaScript][link4]
 
 Para utilizar o ExtratorNFE, você pode acessar o projeto através do seguinte link:
 
 [ExtratorNFE - Visualizador de Notas Fiscais Eletrônicas][def]
 
 [def]: https://whoisczar.github.io/ExtratorNFE/
+[link1]: https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=ndIjl+iEFdE=
+[link2]: https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=BMPFMBoln3w=
+[link3]: https://www.nfe.fazenda.gov.br/portal/listaConteudo.aspx?tipoConteudo=hXzemuyNHW4=
+[link4]: https://www.mundojs.com.br/2020/05/13/lendo-e-renderizando-arquivos-xml-com-javascript/
